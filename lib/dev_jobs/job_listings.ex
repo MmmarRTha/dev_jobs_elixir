@@ -1,0 +1,15 @@
+defmodule DevJobs.JobListings do
+  @moduledoc """
+  The JobListings context.
+  """
+
+    import Ecto.Query, warn: false
+    alias DevJobs.Repo
+    alias DevJobs.JobListings.JobListing
+
+    def create_job_listing(attrs \\ %{}) do
+        %JobListing{}
+        |> JobListing.changeset(attrs)
+        |> Repo.insert()
+    end
+end
