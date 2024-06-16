@@ -3,13 +3,18 @@ defmodule DevJobs.JobListings do
   The JobListings context.
   """
 
-    import Ecto.Query, warn: false
-    alias DevJobs.Repo
-    alias DevJobs.JobListings.JobListing
+  import Ecto.Query, warn: false
+  alias DevJobs.Repo
+  alias DevJobs.JobListings.JobListing
 
-    def create_job_listing(attrs \\ %{}) do
-        %JobListing{}
-        |> JobListing.changeset(attrs)
-        |> Repo.insert()
-    end
+  def create_job_listing(attrs \\ %{}) do
+    %JobListing{}
+    |> JobListing.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def list_job_listings do
+    query = from(jobs in JobListing, order_by: [desc: :inserted_at])
+    Repo.all(query)
+  end
 end

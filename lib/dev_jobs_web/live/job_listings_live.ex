@@ -7,7 +7,8 @@ defmodule DevJobsWeb.JobListingsLive do
   def mount(_params, _session, socket) do
     job_listing = %JobListing{}
     changeset = JobListing.changeset(job_listing)
-    socket = assign(socket, job_listing: job_listing, changeset: changeset)
+    job_listings = JobListings.list_job_listings()
+    socket = assign(socket, job_listing: job_listing, changeset: changeset, job_listings: job_listings)
     {:ok, socket}
   end
 
@@ -22,7 +23,7 @@ defmodule DevJobsWeb.JobListingsLive do
 
   def handle_event("create", %{"job_listing" => params}, socket) do
     case JobListings.create_job_listing(params) do
-      {:ok, job_listing} ->
+      {:ok, _job_listing} ->
         {:noreply,
          socket
          |> put_flash(:info, "Job listing created successfully.")
@@ -45,6 +46,19 @@ defmodule DevJobsWeb.JobListingsLive do
         <.input field={f[:salary]} placeholder="Salary" />
         <.button>Post Job</.button>
       </.form>
+    </div>
+
+    <div>
+      <h1 class="text-center">Job Listings</h1>
+      <ul class="space-y-6">
+          <li :for={job_listing <- @job_listings}>
+            <strong><%= job_listing.title %></strong>
+            <p><%= job_listing.description %></p>
+            <p><%= job_listing.location %></p>
+            <p><%= job_listing.company %></p>
+            <p><%= job_listing.salary %></p>
+          </li>
+      </ul>
     </div>
     """
   end
