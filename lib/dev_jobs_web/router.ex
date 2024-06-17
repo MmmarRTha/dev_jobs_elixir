@@ -20,6 +20,7 @@ defmodule DevJobsWeb.Router do
     # get "/", PageController, :home
     live "/", JobListingsLive, :index
     live "/new", JobListingsLive, :new
+    live "/edit/:id", JobListingsLive, :edit
   end
 
   # Other scopes may use custom stacks.
