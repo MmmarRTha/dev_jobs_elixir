@@ -17,8 +17,9 @@ defmodule DevJobsWeb.Router do
   scope "/", DevJobsWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-    live "/jobs", JobListingsLive, :index
+    # get "/", PageController, :home
+    live "/", JobListingsLive, :index
+    live "/new", JobListingsLive, :new
   end
 
   # Other scopes may use custom stacks.
