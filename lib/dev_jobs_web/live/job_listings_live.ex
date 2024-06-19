@@ -30,15 +30,27 @@ defmodule DevJobsWeb.JobListingsLive do
   end
 
   def handle_event("save", %{"job_listing" => params}, socket) do
-    case JobListings.create_job_listing(params) do
+    case JobListings.save_job_listing(socket.assigns.job_listing, params) do
       {:ok, _job_listing} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Job listing created successfully.")
+         |> put_flash(:info, "Job listing posted successfully.")
          |> push_navigate(to: ~p"/")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
+    end
+  end
+
+  def handle_event("delete", %{"id" => id}, socket) do
+    case JobListings.delete_job_listing(id) do
+      {:ok, _job_listing} ->
+        socket = put_flash(socket, :info, "Job listing deleted successfully.")
+        {:noreply, push_navigate(socket, to: ~p"/")}
+
+      {:error, message} ->
+        socket = put_flash(socket, :error, "Error deleting Job: #{message}")
+        {:noreply, socket}
     end
   end
 
@@ -60,7 +72,7 @@ defmodule DevJobsWeb.JobListingsLive do
           <.input type="text" label="Location:" field={f[:location]} placeholder="Location" />
           <.input type="text" label="Company:" field={f[:company]} placeholder="Company" />
           <.input type="number" label="Salary:" field={f[:salary]} placeholder="Salary" />
-          <.button>Post Job</.button>
+          <.button class="bg-fuchsia-500 hover:bg-fuchsia-600">Post Job</.button>
         </.form>
       </div>
     </.modal>
@@ -86,7 +98,15 @@ defmodule DevJobsWeb.JobListingsLive do
                 class="py-1 bg-sky-500 hover:bg-sky-600"
                 phx-click={JS.patch(~p"/edit/#{job_listing.id}") |> show_modal("job-form-modal")}
               >
-                <%= gettext("Update") %>
+                Update
+              </.button>
+              <.button
+                class="py-1 bg-red-500 hover:bg-red-600"
+                phx-click="delete"
+                phx-value-id={job_listing.id}
+                data-confirm="Are you sure to delete this job?"
+              >
+                Delete
               </.button>
             </div>
           </li>
@@ -108,7 +128,6 @@ defmodule DevJobsWeb.JobListingsLive do
 
   defp apply_action(:edit, %{"id" => id}, socket) do
     job_listing = JobListings.get_job_listing!(id)
-    IO.inspect(job_listing)
     changeset = JobListing.changeset(job_listing)
     assign(socket, job_listing: job_listing, changeset: changeset)
   end
