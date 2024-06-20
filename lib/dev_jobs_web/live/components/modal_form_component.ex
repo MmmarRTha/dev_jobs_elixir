@@ -41,35 +41,37 @@ defmodule DevJobsWeb.JobListingsLive.Components do
     """
   end
 
+  attr :job_listing, JobListing, required: true
+  attr :id, :string, required: true
   def job_listing_rows(assigns) do
     ~H"""
-    <div>
+    <div id={@id}>
       <h1 class="text-xl font-bold text-center uppercase">Job Listings</h1>
       <div class="container">
         <ul class="space-y-6">
-          <li :for={job_listing <- @job_listings} class="border-b last:border-b-0 ">
-            <strong><%= job_listing.title %></strong>
+          <li class="border-b last:border-b-0 ">
+            <strong><%= @job_listing.title %></strong>
             <p>
-              <span class="text-sm text-gray-600 label">Description: </span><%= job_listing.description %>
+              <span class="text-sm text-gray-600 label">Description: </span><%= @job_listing.description %>
             </p>
             <p>
-              <span class="text-sm text-gray-600 label">Location: </span><%= job_listing.location %>
+              <span class="text-sm text-gray-600 label">Location: </span><%= @job_listing.location %>
             </p>
             <p>
-              <span class="text-sm text-gray-600 label">Company: </span><%= job_listing.company %>
+              <span class="text-sm text-gray-600 label">Company: </span><%= @job_listing.company %>
             </p>
-            <p><span class="text-sm text-gray-600 label">Salary: </span>$<%= job_listing.salary %></p>
+            <p><span class="text-sm text-gray-600 label">Salary: </span>$<%= @job_listing.salary %></p>
             <div class="pb-2 text-right">
               <.button
                 class="py-1 uppercase bg-sky-500 hover:bg-sky-600"
-                phx-click={JS.patch(~p"/edit/#{job_listing.id}") |> show_modal("job-form-modal")}
+                phx-click={JS.patch(~p"/edit/#{@job_listing.id}") |> show_modal("job-form-modal")}
               >
                 Update
               </.button>
               <.button
                 class="py-1 uppercase bg-red-500 hover:bg-red-600"
                 phx-click="delete"
-                phx-value-id={job_listing.id}
+                phx-value-id={@job_listing.id}
                 data-confirm="Are you sure to delete this job?"
               >
                 Delete

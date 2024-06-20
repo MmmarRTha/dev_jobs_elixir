@@ -8,10 +8,7 @@ defmodule DevJobsWeb.JobListingsLive do
   def mount(_params, _session, socket) do
     job_listings = JobListings.list_job_listings()
 
-    socket =
-      assign(socket,
-        job_listings: job_listings
-      )
+    socket = stream(socket, :job_listings, job_listings)
 
     {:ok, socket}
   end
@@ -32,11 +29,12 @@ defmodule DevJobsWeb.JobListingsLive do
 
   def handle_event("save", %{"job_listing" => params}, socket) do
     case JobListings.save_job_listing(socket.assigns.job_listing, params) do
-      {:ok, _job_listing} ->
+      {:ok, job_listing} ->
+        socket = stream_insert(socket, :job_listings, job_listing, at: 0)
         {:noreply,
          socket
          |> put_flash(:info, "Job listing posted successfully.")
-         |> push_navigate(to: ~p"/")}
+         |> push_patch(to: ~p"/")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
@@ -46,6 +44,7 @@ defmodule DevJobsWeb.JobListingsLive do
   def handle_event("delete", %{"id" => id}, socket) do
     case JobListings.delete_job_listing(id) do
       {:ok, _job_listing} ->
+
         socket = put_flash(socket, :info, "Job listing deleted successfully.")
         {:noreply, push_navigate(socket, to: ~p"/")}
 
@@ -63,7 +62,13 @@ defmodule DevJobsWeb.JobListingsLive do
     >
       Post a new Job
     </.button>
-    <.job_listing_rows job_listings={@job_listings} />
+    <div id="job_listings" phx-update="stream">
+        <.job_listing_rows
+            :for={{dom_id, job_listing} <- @streams.job_listings}
+            id={dom_id}
+            job_listing={job_listing}
+        />
+    </div>
     <.job_form_modal
       :if={@live_action in [:new, :edit]}
       changeset={@changeset}
