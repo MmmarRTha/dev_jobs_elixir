@@ -13,7 +13,7 @@ config :dev_jobs,
 
 # Configures the endpoint
 config :dev_jobs, DevJobsWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "127.0.0.1"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
     formats: [html: DevJobsWeb.ErrorHTML, json: DevJobsWeb.ErrorJSON],
