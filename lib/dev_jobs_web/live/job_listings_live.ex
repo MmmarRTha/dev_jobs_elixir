@@ -31,6 +31,7 @@ defmodule DevJobsWeb.JobListingsLive do
     case JobListings.save_job_listing(socket.assigns.job_listing, params) do
       {:ok, job_listing} ->
         socket = stream_insert(socket, :job_listings, job_listing, at: 0)
+
         {:noreply,
          socket
          |> put_flash(:info, "Job listing posted successfully.")
@@ -43,10 +44,13 @@ defmodule DevJobsWeb.JobListingsLive do
 
   def handle_event("delete", %{"id" => id}, socket) do
     case JobListings.delete_job_listing(id) do
-      {:ok, _job_listing} ->
+      {:ok, job_listing} ->
+        socket = stream_delete(socket, :job_listings, job_listing)
 
-        socket = put_flash(socket, :info, "Job listing deleted successfully.")
-        {:noreply, push_navigate(socket, to: ~p"/")}
+        {:noreply,
+         socket
+         |> put_flash(:info, "Job listing deleted successfully.")
+         |> push_patch(to: ~p"/")}
 
       {:error, message} ->
         socket = put_flash(socket, :error, "Error deleting Job: #{message}")
@@ -63,11 +67,11 @@ defmodule DevJobsWeb.JobListingsLive do
       Post a new Job
     </.button>
     <div id="job_listings" phx-update="stream">
-        <.job_listing_rows
-            :for={{dom_id, job_listing} <- @streams.job_listings}
-            id={dom_id}
-            job_listing={job_listing}
-        />
+      <.job_listing_rows
+        :for={{dom_id, job_listing} <- @streams.job_listings}
+        id={dom_id}
+        job_listing={job_listing}
+      />
     </div>
     <.job_form_modal
       :if={@live_action in [:new, :edit]}
