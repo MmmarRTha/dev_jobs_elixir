@@ -43,6 +43,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
 
   attr :job_listing, JobListing, required: true
   attr :id, :string, required: true
+
   def job_listing_rows(assigns) do
     ~H"""
     <div id={@id}>
@@ -59,7 +60,15 @@ defmodule DevJobsWeb.JobListingsLive.Components do
             <p>
               <span class="text-sm text-gray-600 label">Company: </span><%= @job_listing.company %>
             </p>
-            <p><span class="text-sm text-gray-600 label">Salary: </span>$<%= @job_listing.salary %></p>
+            <p>
+              <span class="text-sm text-gray-600 label">Salary: </span>$<%= @job_listing.salary %>
+            </p>
+            <p class="text-xs text-sky-600 label">
+              Posted:
+              <span class="text-green-500">
+                <%= Timex.from_now(Timex.shift(@job_listing.updated_at, hours: 0)) %>
+              </span>
+            </p>
             <div class="pb-2 text-right">
               <.button
                 class="py-1 uppercase bg-sky-500 hover:bg-sky-600"

@@ -34,7 +34,7 @@ defmodule DevJobsWeb.JobListingsLive do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Job listing posted successfully.")
+         |> put_flash(:info, "Job listing saved successfully.")
          |> push_patch(to: ~p"/")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
