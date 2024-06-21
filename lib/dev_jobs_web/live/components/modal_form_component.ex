@@ -46,12 +46,11 @@ defmodule DevJobsWeb.JobListingsLive.Components do
   def job_listing_rows(assigns) do
     ~H"""
     <div id={@id}>
-      <h1 class="text-xl font-bold text-center uppercase">Job Listings</h1>
-      <div class="container">
-        <ul class="space-y-6">
-          <li class="border-b last:border-b-0 ">
-            <strong><%= @job_listing.title %></strong>
-            <p>
+      <div class="container mb-4 bg-white rounded-xl">
+        <ul>
+          <li class="p-4 space-y-1 border border-slate-200 rounded-xl">
+            <strong class="text-2xl"><%= @job_listing.title %></strong>
+            <p class="pt-3">
               <span class="text-sm text-gray-600 label">Description: </span><%= @job_listing.description %>
             </p>
             <p>

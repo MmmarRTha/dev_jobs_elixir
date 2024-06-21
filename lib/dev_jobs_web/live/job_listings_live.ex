@@ -61,11 +61,12 @@ defmodule DevJobsWeb.JobListingsLive do
   def render(assigns) do
     ~H"""
     <.button
-      class="px-4 py-2 uppercase rounded-full bg-fuchsia-500 hover:bg-fuchsia-600"
+      class="px-4 py-2 text-xl uppercase rounded-full bg-fuchsia-500 hover:bg-fuchsia-600"
       phx-click={JS.patch(~p"/new") |> show_modal("job-form-modal")}
     >
       Post a new Job
     </.button>
+    <h1 class="my-4 text-xl font-bold text-center uppercase">Job Listings</h1>
     <div id="job_listings" phx-update="stream">
       <.job_listing_rows
         :for={{dom_id, job_listing} <- @streams.job_listings}
