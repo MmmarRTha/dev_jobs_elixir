@@ -17,8 +17,8 @@ defmodule DevJobs.Users do
     end
   end
 
-  defp find_user(%{email: _email} = attrs) do
-    Repo.get_by(User, attrs)
+  defp find_user(%{"email" => email}) do
+    Repo.get_by(User, %{email: email})
   end
 
   defp find_user(_), do: nil
