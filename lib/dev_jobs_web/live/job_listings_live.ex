@@ -61,12 +61,20 @@ defmodule DevJobsWeb.JobListingsLive do
 
   def render(assigns) do
     ~H"""
-    <.button
-      class="px-4 py-2 text-xl uppercase rounded-full bg-fuchsia-500 hover:bg-fuchsia-600"
-      phx-click={JS.patch(~p"/new") |> show_modal("job-form-modal")}
-    >
-      Post a new Job
-    </.button>
+    <div class="flex justify-between">
+      <.button
+        class="px-4 py-2 text-sm uppercase rounded-full bg-fuchsia-500 hover:bg-fuchsia-600"
+        phx-click={JS.patch(~p"/new") |> show_modal("job-form-modal")}
+      >
+        Post a new Job
+      </.button>
+      <.button
+        class="px-2 py-1 uppercase bg-pink-500 rounded-full text-sx hover:bg-pink-600"
+        phx-click={show_modal("login-form-modal")}
+      >
+        login
+      </.button>
+    </div>
     <h1 class="my-4 text-xl font-bold text-center uppercase">Job Listings</h1>
     <div id="job_listings" phx-update="stream" phx-viewport-bottom={!@end_of_timeline? && "next-page"}>
       <.job_listing_rows
