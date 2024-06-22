@@ -7,6 +7,8 @@ defmodule DevJobs.JobListings do
   alias DevJobs.Repo
   alias DevJobs.JobListings.JobListing
 
+  @per_page 10
+
   def save_job_listing(%JobListing{} = job_listing, attrs) do
     job_listing
     |> JobListing.changeset(attrs)
@@ -15,8 +17,12 @@ defmodule DevJobs.JobListings do
 
   def get_job_listing!(id), do: Repo.get!(JobListing, id)
 
-  def list_job_listings do
-    query = from(jobs in JobListing, order_by: [desc: :inserted_at])
+  def list_job_listings(page \\ 1) do
+    offset = (page - 1) * @per_page
+
+    query =
+      from(jobs in JobListing, limit: @per_page, offset: ^offset, order_by: [desc: :inserted_at])
+
     Repo.all(query)
   end
 
