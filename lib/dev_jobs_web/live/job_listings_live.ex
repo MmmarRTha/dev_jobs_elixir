@@ -69,7 +69,7 @@ defmodule DevJobsWeb.JobListingsLive do
         Post a new Job
       </.button>
       <.button
-        class="hidden px-2 py-1 uppercase bg-pink-500 rounded-full text-sx hover:bg-pink-600"
+        class="px-2 py-1 uppercase bg-pink-500 rounded-full text-sx hover:bg-pink-600"
         phx-click={show_modal("login-form-modal")}
       >
         login

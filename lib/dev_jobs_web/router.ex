@@ -18,6 +18,8 @@ defmodule DevJobsWeb.Router do
     pipe_through :browser
 
     # get "/", PageController, :home
+    get "/users/sessions/:token", UserSessionController, :index
+
     live "/", JobListingsLive, :index
     live "/new", JobListingsLive, :new
     live "/edit/:id", JobListingsLive, :edit
