@@ -23,6 +23,8 @@ defmodule DevJobsWeb.LoginLiveComponent do
   def handle_event("save", %{"user" => params}, socket) do
     case Users.save_user(params) do
       {:ok, user} ->
+        Users.deliver_magic_link(user)
+
         {:noreply,
          socket
          |> put_flash(
