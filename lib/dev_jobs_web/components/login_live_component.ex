@@ -22,7 +22,10 @@ defmodule DevJobsWeb.LoginLiveComponent do
 
   def handle_event("save", %{"user" => params}, socket) do
     case Users.save_user(params) do
-      {:ok, user} ->
+
+        {:ok, user} ->
+            IO.inspect("XXXXXXXXXXXXXXXXXXX")
+            IO.inspect(user)
         magic_link_url = &(~p"/users/sessions/#{&1}" |> url())
         Users.deliver_magic_link(user, magic_link_url)
 
@@ -54,7 +57,7 @@ defmodule DevJobsWeb.LoginLiveComponent do
           class="space-y-6"
           autocomplete="off"
         >
-          <.input type="text" field={f[:email]} label="Email" />
+          <.input type="email" field={f[:email]} label="Email" />
           <.button class="bg-sky-500 hover:bg-sky-600">
             Send Magic Link
           </.button>
