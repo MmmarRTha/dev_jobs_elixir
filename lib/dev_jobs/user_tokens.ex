@@ -28,9 +28,9 @@ defmodule DevJobs.UserTokens do
   def get_user_by_email_token(token) do
     with {:ok, query} <- veryfy_email_token(token),
          %User{} = user <- Repo.one(query) do
-            user
+      user
     else
-        _ -> nil
+      _ -> nil
     end
   end
 
