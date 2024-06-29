@@ -18,6 +18,7 @@ defmodule DevJobsWeb.Router do
     pipe_through :browser
 
     # get "/", PageController, :home
+    delete "/users/sessions/logout", UserSessionController, :logout
     get "/users/sessions/:token", UserSessionController, :index
 
     live "/", JobListingsLive, :index

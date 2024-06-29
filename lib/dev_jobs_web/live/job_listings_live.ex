@@ -4,9 +4,21 @@ defmodule DevJobsWeb.JobListingsLive do
 
   alias DevJobs.JobListings
   alias DevJobs.JobListings.JobListing
+  alias DevJobs.UserTokens
 
-  def mount(_params, _session, socket) do
-    {:ok, paginate_job_listings(socket, 1)}
+  def mount(_params, session, socket) do
+    current_user =
+      case session do
+        %{"user_token" => token} -> UserTokens.get_user_by_email_token(token)
+        _ -> nil
+      end
+
+    socket =
+      socket
+      |> assign(current_user: current_user)
+      |> paginate_job_listings(1)
+
+    {:ok, socket}
   end
 
   def handle_params(params, _uri, socket) do
@@ -63,17 +75,27 @@ defmodule DevJobsWeb.JobListingsLive do
     ~H"""
     <div class="flex justify-between">
       <.button
-        class="px-4 py-2 text-sm uppercase rounded-full bg-fuchsia-500 hover:bg-fuchsia-600"
+        class="uppercase bg-fuchsia-500 hover:bg-fuchsia-600"
         phx-click={JS.patch(~p"/new") |> show_modal("job-form-modal")}
       >
         Post a new Job
       </.button>
       <.button
-        class="px-2 py-1 uppercase bg-pink-500 rounded-full text-sx hover:bg-pink-600"
+        class="hidden uppercase bg-pink-500 hover:bg-pink-600"
         phx-click={show_modal("login-form-modal")}
       >
         login
       </.button>
+
+      <div :if={@current_user}>
+        <.link
+          href={~p"/users/sessions/logout"}
+          method="delete"
+          class="px-2 py-3 text-sm font-semibold text-white uppercase bg-blue-500 rounded-lg hover:bg-blue-600"
+        >
+          Logout
+        </.link>
+      </div>
     </div>
     <h1 class="my-4 text-xl font-bold text-center uppercase">Job Listings</h1>
     <div id="job_listings" phx-update="stream" phx-viewport-bottom={!@end_of_timeline? && "next-page"}>
