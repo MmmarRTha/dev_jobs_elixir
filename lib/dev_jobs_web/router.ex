@@ -21,9 +21,16 @@ defmodule DevJobsWeb.Router do
     delete "/users/sessions/logout", UserSessionController, :logout
     get "/users/sessions/:token", UserSessionController, :index
 
-    live "/", JobListingsLive, :index
-    live "/new", JobListingsLive, :new
-    live "/edit/:id", JobListingsLive, :edit
+    live_session :ensured_authenticated,
+      on_mount: {DevJobsWeb.UserAuth, :ensure_authenticated} do
+      live "/new", JobListingsLive, :new
+      live "/edit/:id", JobListingsLive, :edit
+    end
+
+    live_session :current_user,
+      on_mount: {DevJobsWeb.UserAuth, :mount_current_user} do
+      live "/", JobListingsLive, :index
+    end
   end
 
   # Other scopes may use custom stacks.

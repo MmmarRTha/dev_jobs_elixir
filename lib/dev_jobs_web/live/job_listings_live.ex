@@ -4,21 +4,9 @@ defmodule DevJobsWeb.JobListingsLive do
 
   alias DevJobs.JobListings
   alias DevJobs.JobListings.JobListing
-  alias DevJobs.UserTokens
 
-  def mount(_params, session, socket) do
-    current_user =
-      case session do
-        %{"user_token" => token} -> UserTokens.get_user_by_email_token(token)
-        _ -> nil
-      end
-
-    socket =
-      socket
-      |> assign(current_user: current_user)
-      |> paginate_job_listings(1)
-
-    {:ok, socket}
+  def mount(_params, _session, socket) do
+    {:ok, paginate_job_listings(socket, 1)}
   end
 
   def handle_params(params, _uri, socket) do
@@ -75,18 +63,19 @@ defmodule DevJobsWeb.JobListingsLive do
     ~H"""
     <div class="flex justify-between">
       <.button
+        :if={!@current_user}
+        class="uppercase bg-pink-500 hover:bg-pink-600"
+        phx-click={show_modal("login-form-modal")}
+      >
+        login
+      </.button>
+      <.button
+        :if={@current_user}
         class="uppercase bg-fuchsia-500 hover:bg-fuchsia-600"
         phx-click={JS.patch(~p"/new") |> show_modal("job-form-modal")}
       >
         Post a new Job
       </.button>
-      <.button
-        class="hidden uppercase bg-pink-500 hover:bg-pink-600"
-        phx-click={show_modal("login-form-modal")}
-      >
-        login
-      </.button>
-
       <div :if={@current_user}>
         <.link
           href={~p"/users/sessions/logout"}
@@ -103,6 +92,7 @@ defmodule DevJobsWeb.JobListingsLive do
         :for={{dom_id, job_listing} <- @streams.job_listings}
         id={dom_id}
         job_listing={job_listing}
+        current_user={@current_user}
       />
       <div :if={@end_of_timeline?} class="mt-6 text-sm text-center">
         👩🏻‍💻 There are no more job listings 👩🏼‍💻
