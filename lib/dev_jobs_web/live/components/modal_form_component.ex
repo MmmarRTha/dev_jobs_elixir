@@ -43,6 +43,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
 
   attr :job_listing, JobListing, required: true
   attr :id, :string, required: true
+  attr :current_user, DevJobs.Users.User, default: nil
 
   def job_listing_rows(assigns) do
     ~H"""
@@ -69,7 +70,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
                 <%= Timex.from_now(Timex.shift(@job_listing.updated_at, hours: 0)) %>
               </span>
             </p>
-            <div class="pb-2 text-right">
+            <div :if={@current_user} class="pb-2 text-right">
               <.button
                 class="py-1 uppercase bg-sky-500 hover:bg-sky-600"
                 phx-click={JS.patch(~p"/edit/#{@job_listing.id}") |> show_modal("job-form-modal")}

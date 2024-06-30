@@ -22,7 +22,7 @@ defmodule DevJobs.UserEmail do
     Hello #{user.email},
     Here you will find a magic link to login to our DevJobs platform.
 
-    <div class="shadow-2xl">
+    <div class="">
         <a class="px-4 py-2 font-bold text-white rounded-md bg-fuchsia-500 hover:bg-fuchsia-600" href="#{magic_link_url}">Click here to login</a>
     </div>
     """)
