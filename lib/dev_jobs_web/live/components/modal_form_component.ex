@@ -70,7 +70,10 @@ defmodule DevJobsWeb.JobListingsLive.Components do
                 <%= Timex.from_now(Timex.shift(@job_listing.updated_at, hours: 0)) %>
               </span>
             </p>
-            <div :if={@current_user} class="pb-2 text-right">
+            <div
+              :if={@current_user && @current_user.id == @job_listing.user_id}
+              class="pb-2 text-right"
+            >
               <.button
                 class="py-1 uppercase bg-sky-500 hover:bg-sky-600"
                 phx-click={JS.patch(~p"/edit/#{@job_listing.id}") |> show_modal("job-form-modal")}

@@ -30,4 +30,8 @@ defmodule DevJobs.JobListings do
     job_listing = Repo.get!(JobListing, id)
     Repo.delete(job_listing)
   end
+
+  def get_my_job_listings(id, user_id) do
+    Repo.get_by!(JobListing, %{id: id, user_id: user_id})
+  end
 end

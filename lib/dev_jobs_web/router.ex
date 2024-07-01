@@ -1,6 +1,8 @@
 defmodule DevJobsWeb.Router do
   use DevJobsWeb, :router
 
+  import DevJobsWeb.UserAuth
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -15,16 +17,22 @@ defmodule DevJobsWeb.Router do
   end
 
   scope "/", DevJobsWeb do
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
+
+    get "/users/sessions/:token", UserSessionController, :index
+  end
+
+  scope "/", DevJobsWeb do
     pipe_through :browser
 
     # get "/", PageController, :home
     delete "/users/sessions/logout", UserSessionController, :logout
-    get "/users/sessions/:token", UserSessionController, :index
 
     live_session :ensured_authenticated,
       on_mount: {DevJobsWeb.UserAuth, :ensure_authenticated} do
       live "/new", JobListingsLive, :new
       live "/edit/:id", JobListingsLive, :edit
+      live "/my-job-listings", JobListingsLive, :my_job_listings
     end
 
     live_session :current_user,

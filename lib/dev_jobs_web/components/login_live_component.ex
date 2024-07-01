@@ -44,22 +44,42 @@ defmodule DevJobsWeb.LoginLiveComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <.modal id="login-form-modal">
-        <.form
-          :let={f}
-          for={@changeset}
-          phx-change="validate"
-          phx-submit="save"
-          phx-target={@myself}
-          class="space-y-6"
-          autocomplete="off"
+      <div :if={!@current_user}>
+        <.button
+          class="uppercase bg-blue-500 hover:bg-blue-600"
+          phx-click={show_modal("login-form-modal")}
         >
-          <.input type="email" field={f[:email]} label="Email" />
-          <.button class="bg-sky-500 hover:bg-sky-600">
-            Send Magic Link
-          </.button>
-        </.form>
-      </.modal>
+          login
+        </.button>
+
+        <.modal id="login-form-modal">
+          <.form
+            :let={f}
+            for={@changeset}
+            phx-change="validate"
+            phx-submit="save"
+            phx-target={@myself}
+            class="space-y-6"
+            autocomplete="off"
+          >
+            <.input type="email" field={f[:email]} label="Email" />
+            <.button class="bg-sky-500 hover:bg-sky-600">
+              Send Magic Link
+            </.button>
+          </.form>
+        </.modal>
+      </div>
+
+      <div :if={@current_user} class="flex items-center leading-6">
+        <p class="px-4 font-medium text-white">Welcome: <%= @current_user.email %></p>
+        <.link
+          href={~p"/users/sessions/logout"}
+          method="delete"
+          class="px-3 py-3 text-sm font-semibold text-white uppercase bg-blue-500 rounded-lg hover:bg-blue-600"
+        >
+          Logout
+        </.link>
+      </div>
     </div>
     """
   end

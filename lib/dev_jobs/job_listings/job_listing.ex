@@ -9,6 +9,8 @@ defmodule DevJobs.JobListings.JobListing do
     field :company, :string
     field :salary, :decimal
 
+    belongs_to :user, DevJobs.Users.User
+
     timestamps()
   end
 
@@ -16,5 +18,6 @@ defmodule DevJobs.JobListings.JobListing do
     job_listing
     |> cast(attrs, [:title, :description, :location, :company, :salary])
     |> validate_required([:title, :description, :location, :company, :salary])
+    |> assoc_constraint(:user)
   end
 end

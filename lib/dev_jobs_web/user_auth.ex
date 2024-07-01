@@ -2,6 +2,8 @@ defmodule DevJobsWeb.UserAuth do
   alias DevJobs.UserTokens
   use DevJobsWeb, :verified_routes
 
+  import Plug.Conn
+
   def on_mount(:mount_current_user, _params, session, socket) do
     {:cont, mount_current_user(socket, session)}
   end
@@ -18,6 +20,16 @@ defmodule DevJobsWeb.UserAuth do
         |> Phoenix.LiveView.redirect(to: ~p"/")
 
       {:halt, socket}
+    end
+  end
+
+  def redirect_if_user_is_authenticated(conn, _opts) do
+    if get_session(conn, :user_token) do
+      conn
+      |> Phoenix.Controller.redirect(to: ~p"/")
+      |> halt()
+    else
+      conn
     end
   end
 
