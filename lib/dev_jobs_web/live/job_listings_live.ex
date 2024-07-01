@@ -86,7 +86,7 @@ defmodule DevJobsWeb.JobListingsLive do
         </.link>
       </div>
     </div>
-    <h1 class="my-4 text-xl font-bold text-center uppercase">Job Listings</h1>
+    <h1 class="my-4 text-xl font-bold text-center text-white uppercase">Job Listings</h1>
     <div id="job_listings" phx-update="stream" phx-viewport-bottom={!@end_of_timeline? && "next-page"}>
       <.job_listing_rows
         :for={{dom_id, job_listing} <- @streams.job_listings}
