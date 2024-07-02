@@ -46,10 +46,10 @@ defmodule DevJobsWeb.LoginLiveComponent do
     <div>
       <div :if={!@current_user}>
         <.button
-          class="uppercase bg-blue-500 hover:bg-blue-600"
+          class="text-gray-800 bg-gradient-to-r from-teal-200 via-teal-400 to-teal-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           phx-click={show_modal("login-form-modal")}
         >
-          login
+          Employers / Post Job
         </.button>
 
         <.modal id="login-form-modal">
@@ -63,7 +63,7 @@ defmodule DevJobsWeb.LoginLiveComponent do
             autocomplete="off"
           >
             <.input type="email" field={f[:email]} label="Email" />
-            <.button class="bg-sky-500 hover:bg-sky-600">
+            <.button class="text-gray-900 bg-gradient-to-r from-teal-200 via-teal-400 to-teal-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
               Send Magic Link
             </.button>
           </.form>
@@ -75,7 +75,7 @@ defmodule DevJobsWeb.LoginLiveComponent do
         <.link
           href={~p"/users/sessions/logout"}
           method="delete"
-          class="px-3 py-3 text-sm font-semibold text-white uppercase bg-blue-500 rounded-lg hover:bg-blue-600"
+          class="text-gray-900 bg-gradient-to-r from-teal-200 via-teal-400 to-teal-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
         >
           Logout
         </.link>

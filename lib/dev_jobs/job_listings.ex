@@ -26,6 +26,17 @@ defmodule DevJobs.JobListings do
     Repo.all(query)
   end
 
+  def list_job_listings(page, user_id) do
+    offset = (page - 1) * @per_page
+
+    query =
+      from(jobs in JobListing, where: jobs.user_id == ^user_id, limit: @per_page, offset: ^offset, order_by: [desc: :inserted_at])
+
+    Repo.all(query)
+  end
+
+
+
   def delete_job_listing(id) do
     job_listing = Repo.get!(JobListing, id)
     Repo.delete(job_listing)

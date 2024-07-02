@@ -63,11 +63,10 @@ defmodule DevJobsWeb.JobListingsLive do
     ~H"""
     <div class="flex justify-between">
       <.button
-        :if={@current_user}
-        class="uppercase bg-fuchsia-500 hover:bg-fuchsia-600"
+        class="text-gray-900 bg-gradient-to-r from-teal-200 via-teal-400 to-teal-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
         phx-click={JS.patch(~p"/new") |> show_modal("job-form-modal")}
       >
-        Post a new Job
+        Post a New Job
       </.button>
     </div>
     <h1 class="my-4 text-xl font-bold text-center text-white uppercase">Job Listings</h1>
@@ -92,7 +91,7 @@ defmodule DevJobsWeb.JobListingsLive do
   end
 
   defp apply_action(:index, _params, socket) do
-    assign(socket, changeset: nil)
+    socket
   end
 
   defp apply_action(:new, _params, socket) do
@@ -108,11 +107,11 @@ defmodule DevJobsWeb.JobListingsLive do
   end
 
   defp apply_action(:my_job_listings, _params, socket) do
-    assign(socket, job_listing: nil, changeset: nil)
+    socket
   end
 
   defp paginate_job_listings(socket, new_page) do
-    job_listings = JobListings.list_job_listings(new_page)
+    job_listings = JobListings.list_job_listings(new_page, socket.assigns.current_user.id)
 
     if Enum.empty?(job_listings) do
       assign(socket, end_of_timeline?: true)

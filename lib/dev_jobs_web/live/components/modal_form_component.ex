@@ -48,9 +48,9 @@ defmodule DevJobsWeb.JobListingsLive.Components do
   def job_listing_rows(assigns) do
     ~H"""
     <div id={@id}>
-      <div class="container mb-4 bg-white rounded-xl">
+      <div class="container mb-4 leading-none bg-white rounded-xl">
         <ul>
-          <li class="p-4 space-y-1 border border-slate-200 rounded-xl">
+          <li class="p-6 space-y-1 border border-slate-200 rounded-xl">
             <strong class="text-2xl"><%= @job_listing.title %></strong>
             <p class="pt-3">
               <span class="text-sm text-gray-600 label">Description: </span><%= @job_listing.description %>
@@ -72,16 +72,16 @@ defmodule DevJobsWeb.JobListingsLive.Components do
             </p>
             <div
               :if={@current_user && @current_user.id == @job_listing.user_id}
-              class="pb-2 text-right"
+              class="flex justify-end space-x-4"
             >
               <.button
-                class="py-1 uppercase bg-sky-500 hover:bg-sky-600"
+                class="text-xs uppercase bg-blue-500 hover:bg-blue-600 py-1.5 px-2 rounded-lg"
                 phx-click={JS.patch(~p"/edit/#{@job_listing.id}") |> show_modal("job-form-modal")}
               >
                 Update
               </.button>
               <.button
-                class="py-1 uppercase bg-red-500 hover:bg-red-600"
+                class="text-xs uppercase bg-red-500 hover:bg-red-600 py-1.5 px-2 rounded-lg"
                 phx-click="delete"
                 phx-value-id={@job_listing.id}
                 data-confirm="Are you sure to delete this job?"
