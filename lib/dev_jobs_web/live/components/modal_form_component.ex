@@ -23,7 +23,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
       end)
 
     ~H"""
-    <.modal id="job-form-modal" show={true} on_cancel={JS.patch(~p"/")}>
+    <.modal id="job-form-modal" show={true} on_cancel={JS.patch(~p"/my-job-listings")}>
       <div>
         <h1 class="text-xl font-bold"><%= @modal_config.title %></h1>
         <.form :let={f} for={@changeset} phx-change="validate" phx-submit="save" class="space-y-6">
@@ -32,7 +32,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
           <.input type="text" label="Location:" field={f[:location]} placeholder="Location" />
           <.input type="text" label="Company:" field={f[:company]} placeholder="Company" />
           <.input type="number" label="Salary:" field={f[:salary]} placeholder="Salary" />
-          <.button class="bg-fuchsia-500 hover:bg-fuchsia-600">
+          <.button class="text-gray-900 bg-teal-400 hover:bg-teal-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
             <%= @modal_config.submit %>
           </.button>
         </.form>
@@ -48,9 +48,9 @@ defmodule DevJobsWeb.JobListingsLive.Components do
   def job_listing_rows(assigns) do
     ~H"""
     <div id={@id}>
-      <div class="container mb-4 bg-white rounded-xl">
+      <div class="container mb-4 leading-none bg-white rounded-xl">
         <ul>
-          <li class="p-4 space-y-1 border border-slate-200 rounded-xl">
+          <li class="p-6 space-y-1 border border-slate-200 rounded-xl">
             <strong class="text-2xl"><%= @job_listing.title %></strong>
             <p class="pt-3">
               <span class="text-sm text-gray-600 label">Description: </span><%= @job_listing.description %>
@@ -70,15 +70,21 @@ defmodule DevJobsWeb.JobListingsLive.Components do
                 <%= Timex.from_now(Timex.shift(@job_listing.updated_at, hours: 0)) %>
               </span>
             </p>
-            <div :if={@current_user} class="pb-2 text-right">
+            <div
+              :if={@current_user && @current_user.id == @job_listing.user_id}
+              class="flex justify-end space-x-4"
+            >
               <.button
-                class="py-1 uppercase bg-sky-500 hover:bg-sky-600"
-                phx-click={JS.patch(~p"/edit/#{@job_listing.id}") |> show_modal("job-form-modal")}
+                class="text-xs text-white uppercase bg-blue-500 hover:bg-blue-700 py-1.5 px-2 rounded-lg"
+                phx-click={
+                  JS.patch(~p"/my-job-listings/edit/#{@job_listing.id}")
+                  |> show_modal("job-form-modal")
+                }
               >
                 Update
               </.button>
               <.button
-                class="py-1 uppercase bg-red-500 hover:bg-red-600"
+                class="text-xs text-white uppercase bg-red-500 hover:bg-red-700 py-1.5 px-2 rounded-lg"
                 phx-click="delete"
                 phx-value-id={@job_listing.id}
                 data-confirm="Are you sure to delete this job?"

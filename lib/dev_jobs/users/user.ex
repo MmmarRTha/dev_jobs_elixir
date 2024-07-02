@@ -5,6 +5,7 @@ defmodule DevJobs.Users.User do
   schema "users" do
     field :email, :string
 
+    has_many :job_listings, DevJobs.JobListings.JobListing
     timestamps()
   end
 

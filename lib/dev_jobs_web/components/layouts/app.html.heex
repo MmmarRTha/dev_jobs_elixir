@@ -8,20 +8,19 @@
         v<%= Application.spec(:phoenix, :vsn) %>
       </p>
     </div>
-    <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
-      <a href="https://twitter.com/elixirphoenix" class="hover:text-zinc-700">
-        @elixirphoenix
-      </a>
-      <a href="https://github.com/phoenixframework/phoenix" class="hover:text-zinc-700">
-        GitHub
-      </a>
-      <a
-        href="https://hexdocs.pm/phoenix/overview.html"
-        class="px-2 py-1 rounded-lg bg-zinc-100 hover:bg-zinc-200/80"
-      >
-        Get Started <span aria-hidden="true">&rarr;</span>
-      </a>
+    <div class="flex items-center gap-4 font-semibold leading-6 text-white">
+      <.link navigate={~p"/"}>
+        All Jobs
+      </.link>
+      <.link navigate={~p"/my-job-listings"}>
+        Employers: Posted Jobs
+      </.link>
     </div>
+    <.live_component
+      id="login-form"
+      module={DevJobsWeb.LoginLiveComponent}
+      current_user={@current_user}
+    />
   </div>
 </header>
 <main class="px-4 py-20 sm:px-6 lg:px-8">
@@ -29,5 +28,4 @@
     <.flash_group flash={@flash} />
     <%= @inner_content %>
   </div>
-  <.live_component id="login-form" module={DevJobsWeb.LoginLiveComponent} />
 </main>

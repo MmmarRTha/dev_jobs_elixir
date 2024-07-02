@@ -231,8 +231,8 @@ defmodule DevJobsWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        "phx-submit-loading:opacity-75 font-semibold",
+        "text-sm",
         @class
       ]}
       {@rest}
