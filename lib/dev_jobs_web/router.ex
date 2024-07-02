@@ -30,9 +30,9 @@ defmodule DevJobsWeb.Router do
 
     live_session :ensured_authenticated,
       on_mount: {DevJobsWeb.UserAuth, :ensure_authenticated} do
-      live "/new", JobListingsLive, :new
-      live "/edit/:id", JobListingsLive, :edit
-      live "/my-job-listings", JobListingsLive, :my_job_listings
+      live "/my-job-listings/new", MyJobListingsLive, :new
+      live "/my-job-listings/edit/:id", MyJobListingsLive, :edit
+      live "/my-job-listings", MyJobListingsLive, :my_job_listings
     end
 
     live_session :current_user,

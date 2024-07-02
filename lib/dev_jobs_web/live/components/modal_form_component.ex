@@ -23,7 +23,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
       end)
 
     ~H"""
-    <.modal id="job-form-modal" show={true} on_cancel={JS.patch(~p"/")}>
+    <.modal id="job-form-modal" show={true} on_cancel={JS.patch(~p"/my-job-listings")}>
       <div>
         <h1 class="text-xl font-bold"><%= @modal_config.title %></h1>
         <.form :let={f} for={@changeset} phx-change="validate" phx-submit="save" class="space-y-6">
@@ -32,7 +32,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
           <.input type="text" label="Location:" field={f[:location]} placeholder="Location" />
           <.input type="text" label="Company:" field={f[:company]} placeholder="Company" />
           <.input type="number" label="Salary:" field={f[:salary]} placeholder="Salary" />
-          <.button class="bg-fuchsia-500 hover:bg-fuchsia-600">
+          <.button class="text-gray-900 bg-teal-400 hover:bg-teal-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
             <%= @modal_config.submit %>
           </.button>
         </.form>
@@ -75,13 +75,13 @@ defmodule DevJobsWeb.JobListingsLive.Components do
               class="flex justify-end space-x-4"
             >
               <.button
-                class="text-xs uppercase bg-blue-500 hover:bg-blue-600 py-1.5 px-2 rounded-lg"
-                phx-click={JS.patch(~p"/edit/#{@job_listing.id}") |> show_modal("job-form-modal")}
+                class="text-xs text-white uppercase bg-blue-500 hover:bg-blue-700 py-1.5 px-2 rounded-lg"
+                phx-click={JS.patch(~p"/my-job-listings/edit/#{@job_listing.id}") |> show_modal("job-form-modal")}
               >
                 Update
               </.button>
               <.button
-                class="text-xs uppercase bg-red-500 hover:bg-red-600 py-1.5 px-2 rounded-lg"
+                class="text-xs text-white uppercase bg-red-500 hover:bg-red-700 py-1.5 px-2 rounded-lg"
                 phx-click="delete"
                 phx-value-id={@job_listing.id}
                 data-confirm="Are you sure to delete this job?"

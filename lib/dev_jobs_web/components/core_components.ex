@@ -232,7 +232,7 @@ defmodule DevJobsWeb.CoreComponents do
       type={@type}
       class={[
         "phx-submit-loading:opacity-75 font-semibold",
-        "text-sm text-white active:text-white/80",
+        "text-sm",
         @class
       ]}
       {@rest}
