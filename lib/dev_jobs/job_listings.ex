@@ -13,6 +13,7 @@ defmodule DevJobs.JobListings do
     job_listing
     |> JobListing.changeset(attrs)
     |> Repo.insert_or_update()
+    |> broadcast(:new_jobs_posted)
   end
 
   def get_job_listing!(id), do: Repo.get!(JobListing, id)
@@ -47,5 +48,15 @@ defmodule DevJobs.JobListings do
 
   def get_my_job_listings(id, user_id) do
     Repo.get_by!(JobListing, %{id: id, user_id: user_id})
+  end
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(DevJobs.PubSub, "new_jobs_posted")
+  end
+  defp broadcast({:error, _reason} = error, _event), do: error
+
+  defp broadcast({:ok, job_listing}, event) do
+    Phoenix.PubSub.broadcast(DevJobs.PubSub, "new_jobs_posted", {event, job_listing})
+    {:ok, job_listing}
   end
 end
