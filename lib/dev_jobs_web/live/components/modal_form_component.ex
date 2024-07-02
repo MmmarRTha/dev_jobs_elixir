@@ -76,7 +76,10 @@ defmodule DevJobsWeb.JobListingsLive.Components do
             >
               <.button
                 class="text-xs text-white uppercase bg-blue-500 hover:bg-blue-700 py-1.5 px-2 rounded-lg"
-                phx-click={JS.patch(~p"/my-job-listings/edit/#{@job_listing.id}") |> show_modal("job-form-modal")}
+                phx-click={
+                  JS.patch(~p"/my-job-listings/edit/#{@job_listing.id}")
+                  |> show_modal("job-form-modal")
+                }
               >
                 Update
               </.button>

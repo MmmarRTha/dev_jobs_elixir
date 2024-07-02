@@ -27,9 +27,8 @@ defmodule DevJobsWeb.JobListingsLive do
         :for={{dom_id, job_listing} <- @streams.job_listings}
         id={dom_id}
         job_listing={job_listing}
-        current_user={@current_user}
       />
-      <div :if={@end_of_timeline?} class="mt-6 text-sm text-center">
+      <div :if={@end_of_timeline?} class="mt-6 text-sm text-center text-white">
         👩🏻‍💻 There are no more job listings 👩🏼‍💻
       </div>
     </div>

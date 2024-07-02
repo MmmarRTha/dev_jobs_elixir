@@ -9,7 +9,12 @@
       </p>
     </div>
     <div class="flex items-center gap-4 font-semibold leading-6 text-white">
-      elixir
+      <.link navigate={~p"/"}>
+        All Jobs
+      </.link>
+      <.link navigate={~p"/my-job-listings"}>
+        Employers: Posted Jobs
+      </.link>
     </div>
     <.live_component
       id="login-form"
