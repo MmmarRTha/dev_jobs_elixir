@@ -29,7 +29,10 @@ defmodule DevJobs.JobListings do
   end
 
   defp filter_by_search_params(query, %{"search_text" => search_text}) do
-    where(query, [jobs], ilike(jobs.title, ^"%#{search_text}%"))
+    search_pattern = "%#{search_text}%"
+    where(query, [jobs], ilike(jobs.title, ^search_pattern))
+    |> or_where([jobs], ilike(jobs.description, ^search_pattern))
+    # |> or_where([jobs], ilike(jobs.location, ^search_pattern))
   end
 
   defp filter_by_search_params(query, _search_params), do: query
