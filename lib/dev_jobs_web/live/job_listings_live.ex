@@ -5,6 +5,7 @@ defmodule DevJobsWeb.JobListingsLive do
   alias DevJobs.JobListings
 
   def mount(_params, _session, socket) do
+    if connected?(socket), do: JobListings.subscribe()
     {:ok, paginate_job_listings(socket, 1)}
   end
 
@@ -16,6 +17,10 @@ defmodule DevJobsWeb.JobListingsLive do
   def handle_event("next-page", _params, socket) do
     new_page = socket.assigns.page + 1
     {:noreply, paginate_job_listings(socket, new_page)}
+  end
+
+  def handle_info({:new_jobs_posted, job_listing}, socket) do
+    {:noreply, stream_insert(socket, :job_listings, job_listing, at: 0)}
   end
 
   def render(assigns) do
