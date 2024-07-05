@@ -18,14 +18,21 @@ defmodule DevJobs.JobListings do
 
   def get_job_listing!(id), do: Repo.get!(JobListing, id)
 
-  def list_job_listings(page, _search_params) do
+  def list_job_listings(page, search_params) do
     offset = (page - 1) * @per_page
 
     query =
       from(jobs in JobListing, limit: @per_page, offset: ^offset, order_by: [desc: :inserted_at])
+      |> filter_by_search_params(search_params)
 
     Repo.all(query)
   end
+
+  defp filter_by_search_params(query, %{"search_text" => search_text}) do
+    where(query, [jobs], ilike(jobs.title, ^"%#{search_text}%"))
+  end
+
+  defp filter_by_search_params(query, _search_params), do: query
 
   def list_my_job_listings(page, user_id) do
     offset = (page - 1) * @per_page
@@ -53,6 +60,7 @@ defmodule DevJobs.JobListings do
   def subscribe do
     Phoenix.PubSub.subscribe(DevJobs.PubSub, "new_jobs_posted")
   end
+
   defp broadcast({:error, _reason} = error, _event), do: error
 
   defp broadcast({:ok, job_listing}, event) do
