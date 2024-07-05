@@ -4,10 +4,13 @@ defmodule DevJobsWeb.JobListingsLive do
 
   alias DevJobs.JobListings
 
-  def mount(_params, _session, socket) do
+def mount(_params, _session, socket) do
     if connected?(socket), do: JobListings.subscribe()
-    {:ok, paginate_job_listings(socket, 1)}
-  end
+    search_params = %{}
+    search_form = to_form(search_params)
+    socket = assign(socket, search_form: search_form, search_params: search_params)
+    {:ok, paginate_job_listings(socket, 1, search_params)}
+end
 
   def handle_params(params, _uri, socket) do
     socket = apply_action(socket.assigns.live_action, params, socket)
@@ -16,7 +19,7 @@ defmodule DevJobsWeb.JobListingsLive do
 
   def handle_event("next-page", _params, socket) do
     new_page = socket.assigns.page + 1
-    {:noreply, paginate_job_listings(socket, new_page)}
+    {:noreply, paginate_job_listings(socket, new_page, socket.assigns.search_params)}
   end
 
   def handle_info({:new_jobs_posted, job_listing}, socket) do
@@ -25,6 +28,14 @@ defmodule DevJobsWeb.JobListingsLive do
 
   def render(assigns) do
     ~H"""
+    <.simple_form for={@search_form} autocomplete="off">
+    <.input field={@search_form[:search_text]} placeholder="Search Job..." />
+    <:actions>
+        <.button class="px-4 py-2 font-bold text-white rounded-md bg-cyan-500 hover:bg-cyan-700">
+            Search
+        </.button>
+    </:actions>
+    </.simple_form>
     <h1 class="my-4 text-xl font-bold text-center text-white uppercase">Job Listings</h1>
 
     <div id="job_listings" phx-update="stream" phx-viewport-bottom={!@end_of_timeline? && "next-page"}>
@@ -44,8 +55,8 @@ defmodule DevJobsWeb.JobListingsLive do
     socket
   end
 
-  defp paginate_job_listings(socket, new_page) do
-    job_listings = JobListings.list_job_listings(new_page)
+  defp paginate_job_listings(socket, new_page, search_params) do
+    job_listings = JobListings.list_job_listings(new_page, search_params)
 
     if Enum.empty?(job_listings) do
       assign(socket, end_of_timeline?: true)

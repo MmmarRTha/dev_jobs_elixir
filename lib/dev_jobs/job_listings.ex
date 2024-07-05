@@ -18,7 +18,7 @@ defmodule DevJobs.JobListings do
 
   def get_job_listing!(id), do: Repo.get!(JobListing, id)
 
-  def list_job_listings(page \\ 1) do
+  def list_job_listings(page, _search_params) do
     offset = (page - 1) * @per_page
 
     query =
@@ -27,7 +27,7 @@ defmodule DevJobs.JobListings do
     Repo.all(query)
   end
 
-  def list_job_listings(page, user_id) do
+  def list_my_job_listings(page, user_id) do
     offset = (page - 1) * @per_page
 
     query =

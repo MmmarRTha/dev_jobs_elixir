@@ -111,7 +111,7 @@ defmodule DevJobsWeb.MyJobListingsLive do
   end
 
   defp paginate_job_listings(socket, new_page) do
-    job_listings = JobListings.list_job_listings(new_page, socket.assigns.current_user.id)
+    job_listings = JobListings.list_my_job_listings(new_page, socket.assigns.current_user.id)
 
     if Enum.empty?(job_listings) do
       socket
