@@ -1,0 +1,24 @@
+<.simple_form for={@form} autocomplete="off" method="GET">
+    <.input field={@form[:search_text]} placeholder="Search Job..." />
+    <:actions>
+        <.button class="px-4 py-2 font-bold text-white rounded-md bg-cyan-500 hover:bg-cyan-700">
+            Search
+        </.button>
+        <a href="/" class="px-4 py-2 font-bold text-white rounded-md bg-cyan-500 hover:bg-cyan-700">
+            Clear
+        </a>
+    </:actions>
+</.simple_form>
+
+<h1 class="my-4 text-xl font-bold text-center text-white uppercase">Job Listings</h1>
+
+<div id="job_listings" phx-update="stream" phx-viewport-bottom={!@end_of_timeline? && "next-page"}>
+  <.job_listing_rows
+    :for={{dom_id, job_listing} <- @streams.job_listings}
+    id={dom_id}
+    job_listing={job_listing}
+  />
+  <div :if={@end_of_timeline?} class="mt-6 text-sm text-center text-white">
+    👩🏻‍💻 There are no job listings 👩🏼‍💻
+  </div>
+</div>

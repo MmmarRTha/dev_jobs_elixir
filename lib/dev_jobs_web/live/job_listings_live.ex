@@ -4,9 +4,19 @@ defmodule DevJobsWeb.JobListingsLive do
 
   alias DevJobs.JobListings
 
+  def mount(%{"search_text" => _search_text} = search_params, _session, socket) do
+    {:ok, filter_job_listings(socket, search_params)}
+  end
+
   def mount(_params, _session, socket) do
+    {:ok, filter_job_listings(socket)}
+  end
+
+  defp filter_job_listings(socket, search_params \\ %{}) do
     if connected?(socket), do: JobListings.subscribe()
-    {:ok, paginate_job_listings(socket, 1)}
+    form = to_form(search_params)
+    socket = assign(socket, form: form, search_params: search_params)
+    paginate_job_listings(socket, 1, search_params)
   end
 
   def handle_params(params, _uri, socket) do
@@ -16,36 +26,19 @@ defmodule DevJobsWeb.JobListingsLive do
 
   def handle_event("next-page", _params, socket) do
     new_page = socket.assigns.page + 1
-    {:noreply, paginate_job_listings(socket, new_page)}
+    {:noreply, paginate_job_listings(socket, new_page, socket.assigns.search_params)}
   end
 
   def handle_info({:new_jobs_posted, job_listing}, socket) do
     {:noreply, stream_insert(socket, :job_listings, job_listing, at: 0)}
   end
 
-  def render(assigns) do
-    ~H"""
-    <h1 class="my-4 text-xl font-bold text-center text-white uppercase">Job Listings</h1>
-
-    <div id="job_listings" phx-update="stream" phx-viewport-bottom={!@end_of_timeline? && "next-page"}>
-      <.job_listing_rows
-        :for={{dom_id, job_listing} <- @streams.job_listings}
-        id={dom_id}
-        job_listing={job_listing}
-      />
-      <div :if={@end_of_timeline?} class="mt-6 text-sm text-center text-white">
-        👩🏻‍💻 There are no more job listings 👩🏼‍💻
-      </div>
-    </div>
-    """
-  end
-
   defp apply_action(:index, _params, socket) do
     socket
   end
 
-  defp paginate_job_listings(socket, new_page) do
-    job_listings = JobListings.list_job_listings(new_page)
+  defp paginate_job_listings(socket, new_page, search_params) do
+    job_listings = JobListings.list_job_listings(new_page, search_params)
 
     if Enum.empty?(job_listings) do
       assign(socket, end_of_timeline?: true)
