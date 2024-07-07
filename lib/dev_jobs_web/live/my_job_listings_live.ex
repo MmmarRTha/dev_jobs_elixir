@@ -59,37 +59,6 @@ defmodule DevJobsWeb.MyJobListingsLive do
     {:noreply, paginate_job_listings(socket, new_page)}
   end
 
-  def render(assigns) do
-    ~H"""
-    <div class="flex justify-between">
-      <.button
-        class="text-gray-900 bg-gradient-to-r from-teal-200 via-teal-400 to-teal-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-        phx-click={JS.patch(~p"/my-job-listings/new") |> show_modal("job-form-modal")}
-      >
-        Post a New Job
-      </.button>
-    </div>
-    <h1 class="my-4 text-xl font-bold text-center text-white uppercase">Job Listings</h1>
-
-    <div id="job_listings" phx-update="stream" phx-viewport-bottom={!@end_of_timeline? && "next-page"}>
-      <.job_listing_rows
-        :for={{dom_id, job_listing} <- @streams.job_listings}
-        id={dom_id}
-        job_listing={job_listing}
-        current_user={@current_user}
-      />
-      <div :if={@end_of_timeline?} class="mt-6 text-sm text-center text-white">
-        👩🏻‍💻 You haven't posted jobs yet! 👩🏼‍💻
-      </div>
-    </div>
-    <.job_form_modal
-      :if={@live_action in [:new, :edit]}
-      changeset={@changeset}
-      job_listing={@job_listing}
-    />
-    """
-  end
-
   defp apply_action(:index, _params, socket) do
     socket
   end
