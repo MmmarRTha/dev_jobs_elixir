@@ -4,7 +4,7 @@ defmodule DevJobs.UserEmail do
 
   @from {"DevJobs", "no-reply@devjobs.com"}
 
-  defp deliver(recipient, subject, body) do
+  def deliver(recipient, subject, body) do
     email =
       new()
       |> to(recipient)
