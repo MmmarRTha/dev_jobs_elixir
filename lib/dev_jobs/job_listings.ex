@@ -22,12 +22,15 @@ defmodule DevJobs.JobListings do
     offset = (page - 1) * @per_page
 
     query =
-      from(jobs in JobListing, limit: @per_page, offset: ^offset, order_by: [desc: :inserted_at])
+      from(jobs in JobListing,
+        limit: @per_page,
+        offset: ^offset,
+        order_by: [desc: :inserted_at],
+        preload: [:user]
+      )
       |> filter_by_search_params(search_params)
 
-    query
-    |> Repo.all()
-    |> Repo.preload([user: :job_listings])
+    Repo.all(query)
   end
 
   defp filter_by_search_params(query, %{"search_text" => search_text}) do
