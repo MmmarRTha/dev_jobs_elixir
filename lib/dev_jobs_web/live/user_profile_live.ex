@@ -21,9 +21,6 @@ defmodule DevJobsWeb.UserProfileLive do
       [file_name | _] ->
         Users.update_user(socket.assigns.current_user, %{"avatar" => file_name})
 
-        IO.inspect("XXXXXXXXXX")
-        IO.inspect(socket.assigns.current_user)
-
         socket =
           socket
           |> put_flash(:info, "Avatar updated")
