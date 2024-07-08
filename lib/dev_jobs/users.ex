@@ -30,6 +30,12 @@ defmodule DevJobs.Users do
     end
   end
 
+  def update_user(%User{} = user, attrs) do
+    user
+    |> User.avatar_changeset(attrs)
+    |> Repo.update()
+  end
+
   @doc """
       Delivers a magic link to the user.
   """
