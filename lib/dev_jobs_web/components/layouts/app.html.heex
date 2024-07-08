@@ -8,12 +8,15 @@
         v<%= Application.spec(:phoenix, :vsn) %>
       </p>
     </div>
-    <div class="flex items-center gap-4 font-semibold leading-6 text-white">
+    <div class="flex items-center gap-4 text-lg font-semibold text-white">
       <.link navigate={~p"/"}>
         All Jobs
       </.link>
       <.link navigate={~p"/my-job-listings"}>
         Employers: Posted Jobs
+      </.link>
+      <.link navigate={~p"/my-profile"}>
+        My Profile
       </.link>
     </div>
     <.live_component

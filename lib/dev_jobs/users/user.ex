@@ -4,6 +4,7 @@ defmodule DevJobs.Users.User do
 
   schema "users" do
     field :email, :string
+    field :avatar, :string
 
     has_many :job_listings, DevJobs.JobListings.JobListing
     timestamps()
@@ -16,4 +17,6 @@ defmodule DevJobs.Users.User do
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
   end
+
+  def avatar_changeset(user, attrs \\ %{}), do: cast(user, attrs, [:avatar])
 end

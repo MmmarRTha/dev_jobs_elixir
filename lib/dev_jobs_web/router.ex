@@ -33,6 +33,7 @@ defmodule DevJobsWeb.Router do
       live "/my-job-listings/new", MyJobListingsLive, :new
       live "/my-job-listings/edit/:id", MyJobListingsLive, :edit
       live "/my-job-listings", MyJobListingsLive, :my_job_listings
+      live "/my-profile", UserProfileLive, :index
     end
 
     live_session :current_user,
