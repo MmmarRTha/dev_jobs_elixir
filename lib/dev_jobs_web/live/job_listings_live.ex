@@ -41,7 +41,9 @@ defmodule DevJobsWeb.JobListingsLive do
     job_listings = JobListings.list_job_listings(new_page, search_params)
 
     if Enum.empty?(job_listings) do
-      assign(socket, end_of_timeline?: true)
+      socket
+      |> assign(end_of_timeline?: true)
+      |> stream(:job_listings, [])
     else
       socket
       |> assign(end_of_timeline?: false)

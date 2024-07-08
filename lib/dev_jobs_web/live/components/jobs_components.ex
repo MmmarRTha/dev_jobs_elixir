@@ -43,7 +43,6 @@ defmodule DevJobsWeb.JobListingsLive.Components do
 
   attr :job_listing, JobListing, required: true
   attr :id, :string, required: true
-  attr :current_user, DevJobs.Users.User, default: nil
 
   def job_listing_rows(assigns) do
     ~H"""
@@ -52,7 +51,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
         <ul>
           <li class="p-6 space-y-1 border border-slate-200 rounded-xl">
             <strong class="flex justify-center text-2xl"><%= @job_listing.title %></strong>
-            <div :if={!@current_user && @job_listing.user} class="flex flex-col items-end">
+            <div :if={@job_listing.user_id && @job_listing.user.avatar} class="flex flex-col items-end">
               <img
                 src={~p"/uploads/#{@job_listing.user.avatar}"}
                 alt="job-listing-user-avatar"
@@ -60,6 +59,42 @@ defmodule DevJobsWeb.JobListingsLive.Components do
               />
               <p class="pt-1 text-xs text-slate-500"><%= @job_listing.user.email %></p>
             </div>
+            <p class="pt-2">
+              <span class="text-sm text-gray-600 label">Description: </span><%= @job_listing.description %>
+            </p>
+            <p>
+              <span class="text-sm text-gray-600 label">Location: </span><%= @job_listing.location %>
+            </p>
+            <p>
+              <span class="text-sm text-gray-600 label">Company: </span><%= @job_listing.company %>
+            </p>
+            <p>
+              <span class="text-sm text-gray-600 label">Salary: </span>$<%= @job_listing.salary %>
+            </p>
+            <p class="text-xs text-sky-600 label">
+              Posted:
+              <span class="text-green-500">
+                <%= Timex.from_now(Timex.shift(@job_listing.updated_at, hours: 0)) %>
+              </span>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    """
+  end
+
+  attr :job_listing, JobListing, required: true
+  attr :id, :string, required: true
+  attr :current_user, DevJobs.Users.User, default: nil
+
+  def my_job_listing_rows(assigns) do
+    ~H"""
+    <div id={@id}>
+      <div class="container mb-4 leading-none bg-white rounded-xl">
+        <ul>
+          <li class="p-6 space-y-1 border border-slate-200 rounded-xl">
+            <strong class="flex justify-center text-2xl"><%= @job_listing.title %></strong>
             <p class="pt-2">
               <span class="text-sm text-gray-600 label">Description: </span><%= @job_listing.description %>
             </p>
