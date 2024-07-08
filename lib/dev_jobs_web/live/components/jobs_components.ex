@@ -51,8 +51,12 @@ defmodule DevJobsWeb.JobListingsLive.Components do
       <div class="container mb-4 leading-none bg-white rounded-xl">
         <ul>
           <li class="p-6 space-y-1 border border-slate-200 rounded-xl">
-            <strong class="text-2xl"><%= @job_listing.title %></strong>
-            <p class="pt-3">
+            <strong class="flex justify-center text-2xl"><%= @job_listing.title %></strong>
+            <div :if={@job_listing.user_id && @job_listing.user.avatar} class="flex flex-col items-end">
+                <img src={~p"/uploads/#{@job_listing.user.avatar}"} alt="job-listing-user-avatar" class="w-8 h-8 rounded-full">
+               <p class="pt-1 text-xs text-slate-500"><%= @job_listing.user.email %></p>
+            </div>
+            <p class="pt-2">
               <span class="text-sm text-gray-600 label">Description: </span><%= @job_listing.description %>
             </p>
             <p>

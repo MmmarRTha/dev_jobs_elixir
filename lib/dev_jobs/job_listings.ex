@@ -25,7 +25,9 @@ defmodule DevJobs.JobListings do
       from(jobs in JobListing, limit: @per_page, offset: ^offset, order_by: [desc: :inserted_at])
       |> filter_by_search_params(search_params)
 
-    Repo.all(query)
+    query
+    |> Repo.all()
+    |> Repo.preload([user: :job_listings])
   end
 
   defp filter_by_search_params(query, %{"search_text" => search_text}) do
