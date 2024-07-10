@@ -4,7 +4,7 @@ defmodule DevJobs.UserEmail do
 
   @from "DevJobs <noreply@devjob-elixir.me>"
 
-  def deliver(recipient, subject, body_email) do
+  defp deliver(recipient, subject, body_email) do
     email =
       new()
       |> to(recipient)
