@@ -2,7 +2,7 @@ defmodule DevJobs.UserEmail do
   alias DevJobs.Mailer
   import Swoosh.Email
 
-  @from {"DevJobs", "no-reply@resend.dev"}
+  @from {"DevJobs", "no-reply@devjob-elixir.me"}
 
   def deliver(recipient, subject, body_email) do
     email =
