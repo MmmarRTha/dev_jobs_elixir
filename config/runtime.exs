@@ -20,6 +20,8 @@ if System.get_env("PHX_SERVER") do
   config :dev_jobs, DevJobsWeb.Endpoint, server: true
 end
 
+config :dev_jobs, DevJobs.Mailer, api_key: System.get_env("RESEND_API_KEY")
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
