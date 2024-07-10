@@ -51,7 +51,10 @@ defmodule DevJobsWeb.JobListingsLive.Components do
         <ul>
           <li class="p-8 space-y-1 border border-slate-200 rounded-xl">
             <strong class="flex justify-center pb-2 text-2xl"><%= @job_listing.title %></strong>
-            <div :if={@job_listing.user_id && @job_listing.user.avatar} class="flex flex-col items-end">
+            <div
+              :if={@job_listing.user_id && @job_listing.user.avatar}
+              class="flex flex-col items-end"
+            >
               <img
                 src={~p"/uploads/#{@job_listing.user.avatar}"}
                 alt="job-listing-user-avatar"
