@@ -2,7 +2,7 @@ defmodule DevJobs.UserEmail do
   alias DevJobs.Mailer
   import Swoosh.Email
 
-  @from "DevJobs <noreply@devjob-elixir.me>"
+  @from "Dev Jobs <noreply@devjob-elixir.me>"
 
   defp deliver(recipient, subject, body_email) do
     email =
@@ -41,7 +41,7 @@ defmodule DevJobs.UserEmail do
   end
 
   defp send_email_using_resend(%{user: user, subject: subject, body_email: body_email}) do
-    client = Resend.client(api_key: "RESEND_API_KEY")
+    client = Resend.client(api_key: "re_65NjJqey_GWbpGHzEXXboKYp8RSGdFsfe")
 
     Resend.Emails.send(client, %{
       from: @from,
