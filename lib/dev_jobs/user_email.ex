@@ -47,7 +47,7 @@ defmodule DevJobs.UserEmail do
       from: @from,
       to: [user.email],
       subject: subject,
-      text: body_email
+      html: body_email
     })
   end
 end
