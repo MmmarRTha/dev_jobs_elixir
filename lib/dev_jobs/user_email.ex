@@ -34,7 +34,7 @@ defmodule DevJobs.UserEmail do
 
       <p style="font-size:16px;line-height:26px;margin:16px 0" >Here you will find a magic link to sign in to our DevJobs platform. </p>
 
-      <p style="font-size:16px;line-height:26px;margin:16px 0"><a href="#{magic_link_url}" style="color:#FF6363;text-decoration:none" target="_blank">👉 Click here to sign in 👈</a></p>
+      <a href="#{magic_link_url}" style="color:#FF6363;text-decoration:none" target="_blank"> 👉 Click here to sign in 👈</a>
       <p style="font-size:16px;line-height:26px;margin:16px 0">If you didn&#x27;t request this, please ignore this email.</p>
 
       """
