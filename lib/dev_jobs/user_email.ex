@@ -19,12 +19,12 @@ defmodule DevJobs.UserEmail do
 
   def magic_link_email(user, magic_link_url) do
     subject = "Sign in to Dev Jobs"
-    body_email = email_body(user, magic_link_url)
+    body = email_body(user, magic_link_url)
 
     if System.get_env("RESEND_API_KEY") do
-      send_email_using_resend(%{user: user, subject: subject, body_email: body_email})
+      send_email_using_resend(%{user: user, subject: subject, body_email: body})
     else
-      deliver(user.email, subject, body_email)
+      deliver(user.email, subject, body)
     end
   end
 
