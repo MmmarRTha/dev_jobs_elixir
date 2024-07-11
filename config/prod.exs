@@ -10,7 +10,6 @@ gig_host = System.get_env("GIG_HOST") || "devjob-elixir.me"
 
 config :dev_jobs, DevJobsWeb.Endpoint,
   url: [host: host, scheme: "https", port: 443],
-  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   check_origin: [host, gig_host],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
