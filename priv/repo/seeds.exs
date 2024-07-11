@@ -1,8 +1,3 @@
-DevJobs.Repo.insert!(%DevJobs.Users.User{
-    id: 1,
-    email: "martha.nieto.mi@gmail.com",
-    avatar: "eaf3950d-f410-4837-9ca3-d7ac3aa4c017.jpg"
-  })
 
 # Create a list of job listings
 job_listings = [
@@ -12,7 +7,6 @@ job_listings = [
         location: "Seattle",
         description: "Join our backend development team and help build scalable systems.",
         salary: 95000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Full Stack Engineer",
@@ -21,7 +15,6 @@ job_listings = [
         description:
             "Looking for a versatile full stack engineer with experience in Elixir Phoenix LiveView framework.",
         salary: 105_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "iOS Mobile App Developer",
@@ -29,7 +22,6 @@ job_listings = [
         location: "Los Angeles",
         description: "Develop innovative mobile applications for our clients.",
         salary: 95000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "DevOps Engineer",
@@ -37,7 +29,6 @@ job_listings = [
         location: "Denver",
         description: "Manage and automate our cloud infrastructure.",
         salary: 100_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "UI/UX Designer",
@@ -45,7 +36,6 @@ job_listings = [
         location: "London",
         description: "Create intuitive and visually appealing user interfaces.",
         salary: 90000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Machine Learning Engineer",
@@ -53,7 +43,6 @@ job_listings = [
         location: "Berlin",
         description: "Work on cutting-edge machine learning algorithms.",
         salary: 110_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Product Manager",
@@ -61,7 +50,6 @@ job_listings = [
         location: "San Diego",
         description: "Lead the development and launch of new products.",
         salary: 100_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Quality Assurance Engineer",
@@ -69,7 +57,6 @@ job_listings = [
         location: "Toronto",
         description: "Ensure the quality and reliability of our software products.",
         salary: 95000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Database Administrator",
@@ -77,7 +64,6 @@ job_listings = [
         location: "Sydney",
         description: "Manage and optimize our database systems.",
         salary: 105_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Cybersecurity Analyst",
@@ -85,7 +71,6 @@ job_listings = [
         location: "Washington D.C.",
         description: "Protect our systems from cyber threats and vulnerabilities.",
         salary: 100_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Game Developer",
@@ -93,7 +78,6 @@ job_listings = [
         location: "Tokyo",
         description: "Create immersive and engaging gaming experiences.",
         salary: 95000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Network Engineer",
@@ -101,7 +85,6 @@ job_listings = [
         location: "Paris",
         description: "Design and maintain our network infrastructure.",
         salary: 105_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Embedded Systems Engineer",
@@ -109,7 +92,6 @@ job_listings = [
         location: "Munich",
         description: "Develop embedded systems for various applications.",
         salary: 100_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Data Analyst",
@@ -117,7 +99,6 @@ job_listings = [
         location: "New Delhi",
         description: "Analyze and interpret data to drive business insights.",
         salary: 95000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Cloud Architect",
@@ -125,7 +106,6 @@ job_listings = [
         location: "Seattle",
         description: "Design and implement scalable cloud solutions.",
         salary: 105_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "IT Support Specialist",
@@ -133,7 +113,6 @@ job_listings = [
         location: "San Francisco",
         description: "Provide technical support to end users.",
         salary: 100_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Blockchain Developer",
@@ -141,7 +120,6 @@ job_listings = [
         location: "New York",
         description: "Build decentralized applications using blockchain technology.",
         salary: 95000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Systems Administrator",
@@ -149,7 +127,6 @@ job_listings = [
         location: "Chicago",
         description: "Manage and maintain our computer systems and servers.",
         salary: 105_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Artificial Intelligence Researcher",
@@ -157,7 +134,6 @@ job_listings = [
         location: "Boston",
         description: "Conduct research in the field of artificial intelligence.",
         salary: 100_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Software Tester",
@@ -165,7 +141,6 @@ job_listings = [
         location: "Austin",
         description: "Test and debug software applications.",
         salary: 95000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Frontend Architect",
@@ -173,7 +148,6 @@ job_listings = [
         location: "Los Angeles",
         description: "Design and implement scalable frontend architectures.",
         salary: 105_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Data Engineer",
@@ -181,7 +155,6 @@ job_listings = [
         location: "Denver",
         description: "Build and maintain data pipelines and ETL processes.",
         salary: 100_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "UX Researcher",
@@ -189,7 +162,6 @@ job_listings = [
         location: "London",
         description: "Conduct user research to inform product design decisions.",
         salary: 95000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Software Architect",
@@ -197,7 +169,6 @@ job_listings = [
         location: "Berlin",
         description: "Design and oversee the architecture of software systems.",
         salary: 105_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Product Owner",
@@ -205,7 +176,6 @@ job_listings = [
         location: "San Diego",
         description: "Define and prioritize product features and requirements.",
         salary: 100_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Backend Architect",
@@ -213,7 +183,6 @@ job_listings = [
         location: "Toronto",
         description: "Design and implement scalable backend architectures.",
         salary: 95000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Data Visualization Specialist",
@@ -221,7 +190,6 @@ job_listings = [
         location: "Sydney",
         description: "Create visually appealing data visualizations and dashboards.",
         salary: 105_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "IT Project Manager",
@@ -229,7 +197,6 @@ job_listings = [
         location: "Washington D.C.",
         description: "Manage and oversee IT projects from initiation to completion.",
         salary: 100_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Mobile App Tester",
@@ -237,7 +204,6 @@ job_listings = [
         location: "Tokyo",
         description: "Test and ensure the quality of mobile applications.",
         salary: 95000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Network Security Engineer",
@@ -245,7 +211,6 @@ job_listings = [
         location: "Paris",
         description: "Implement and maintain network security measures.",
         salary: 105_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Firmware Engineer",
@@ -253,7 +218,6 @@ job_listings = [
         location: "Munich",
         description: "Develop firmware for embedded systems.",
         salary: 100_000,
-        user_id: 1
     },
     %DevJobs.JobListings.JobListing{
         title: "Business Analyst",
@@ -261,7 +225,6 @@ job_listings = [
         location: "New Delhi",
         description: "Gather and analyze business requirements.",
         salary: 95000,
-        user_id: 1
     }
 ]
 
