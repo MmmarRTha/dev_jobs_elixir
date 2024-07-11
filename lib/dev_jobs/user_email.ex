@@ -34,17 +34,14 @@ defmodule DevJobs.UserEmail do
 
       <p style="font-size:16px;line-height:26px;margin:16px 0" >Here you will find a magic link to sign in to our DevJobs platform. </p>
 
-      <a href="#{magic_link_url}" style="color:#FF6363;text-decoration:none" target="_blank"> 👉 Click here to sign in 👈</a>
-      <p style="font-size:16px;line-height:26px;margin:16px 0">If you didn&#x27;t request this, please ignore this email.</p>
+        <a class="text-gray-900 bg-gradient-to-r from-teal-200 via-teal-400 to-teal-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" href="#{magic_link_url}">Click here to Sign In</a>
 
+      <p style="font-size:16px;line-height:26px;margin:16px 0">If you didn&#x27;t request this, please ignore this email.</p>
       """
   end
 
   defp send_email_using_resend(%{user: user, subject: subject, body_email: body_email}) do
     client = Resend.client(api_key: "re_65NjJqey_GWbpGHzEXXboKYp8RSGdFsfe")
-
-    IO.inspect("XXXXXXXXXXXXXXXXXXXXXXXXXXx")
-    IO.inspect(body_email)
     Resend.Emails.send(client, %{
       from: @from,
       to: [user.email],
