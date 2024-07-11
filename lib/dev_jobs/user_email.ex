@@ -34,7 +34,6 @@ defmodule DevJobs.UserEmail do
 
     Here you will find a magic link to sign in to our Dev Jobs platform.
 
-    <.link navigate={~p"#{magic_link_url}"} >Magic Link</link>
       #{magic_link_url}
 
     If you didn't request this, please ignore this email.
