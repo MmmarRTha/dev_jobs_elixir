@@ -16,7 +16,7 @@ config :dev_jobs, DevJobsWeb.Endpoint,
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: DevJobs.Finch
 
-config :dev_jobs, DevJobs.Mailer, adapter: Resend.Swoosh.Adapter
+config :dev_jobs, DevJobs.Mailer, adapter: Resend.Swoosh.Adapter, api_key: System.get_env("RESEND_API_KEY")
 
 # Disable Swoosh Local Memory Storage
 config :swoosh, local: false
