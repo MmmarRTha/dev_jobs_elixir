@@ -29,16 +29,15 @@ defmodule DevJobs.UserEmail do
   end
 
   def email_body(user, magic_link_url) do
-    """
-    Hello #{user.email}
+      """
+      Hello #{user.email}
 
-    Here you will find a magic link to sign in to our DevJobs platform.
+      <p style="font-size:16px;line-height:26px;margin:16px 0" >Here you will find a magic link to sign in to our DevJobs platform. </p>
 
-    #{magic_link_url}
+      <p style="font-size:16px;line-height:26px;margin:16px 0"><a href="#{magic_link_url}" style="color:#FF6363;text-decoration:none" target="_blank">👉 Click here to sign in 👈</a></p>
+      <p style="font-size:16px;line-height:26px;margin:16px 0">If you didn&#x27;t request this, please ignore this email.</p>
 
-    If you didn&#x27;t request this, please ignore this email.
-
-    """
+      """
   end
 
   defp send_email_using_resend(%{user: user, subject: subject, body_email: body_email}) do
