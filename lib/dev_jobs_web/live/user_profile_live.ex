@@ -34,8 +34,8 @@ defmodule DevJobsWeb.UserProfileLive do
   end
 
   defp consume_files(socket) do
-    consume_uploaded_entries(socket, :files, fn %{path: path}, _entry ->
-      file_name = Ecto.UUID.generate()
+    consume_uploaded_entries(socket, :files, fn %{path: path}, entry ->
+      file_name = "#{entry.uuid}.#{ext(entry)}"
 
       dest = Path.join(Application.app_dir(:dev_jobs, "priv/static/uploads"), file_name)
 
@@ -47,4 +47,9 @@ defmodule DevJobsWeb.UserProfileLive do
   defp error_to_string(:too_large), do: "Too large"
   defp error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
   defp error_to_string(:too_many_files), do: "You have selected too many files"
+
+  defp ext(entry) do
+    [ext | _] = MIME.extensions(entry.client_type)
+    ext
+  end
 end

@@ -20,7 +20,9 @@ if System.get_env("PHX_SERVER") do
   config :dev_jobs, DevJobsWeb.Endpoint, server: true
 end
 
-config :dev_jobs, DevJobs.Mailer, adapter: Resend.Swoosh.Adapter, api_key: System.get_env("RESEND_API_KEY")
+config :dev_jobs, DevJobs.Mailer,
+  adapter: Resend.Swoosh.Adapter,
+  api_key: System.get_env("RESEND")
 
 if config_env() == :prod do
   database_url =
@@ -34,9 +36,7 @@ if config_env() == :prod do
 
   config :dev_jobs, DevJobs.Repo,
     ssl: true,
-    ssl_opts: [
-      verify: :verify_none
-    ],
+    ssl_opts: [verify: :verify_none],
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6

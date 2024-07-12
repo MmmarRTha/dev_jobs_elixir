@@ -4,7 +4,7 @@ defmodule DevJobs.UserEmail do
 
   @from "Dev Jobs <noreply@devjob-elixir.me>"
 
-  defp deliver(recipient, subject, body_email) do
+  def deliver(recipient, subject, body_email) do
     email =
       new()
       |> to(recipient)
@@ -19,12 +19,12 @@ defmodule DevJobs.UserEmail do
 
   def magic_link_email(user, magic_link_url) do
     subject = "Sign in to Dev Jobs"
-    body_email = email_body(user, magic_link_url)
+    body = email_body(user, magic_link_url)
 
-    if System.get_env("RESEND_API_KEY") do
-      send_email_using_resend(%{user: user, subject: subject, body_email: body_email})
+    if System.get_env("RESEND") do
+      send_email_using_resend(%{user: user, subject: subject, body_email: body})
     else
-      deliver(user.email, subject, body_email)
+      deliver(user.email, subject, body)
     end
   end
 
@@ -41,7 +41,7 @@ defmodule DevJobs.UserEmail do
   end
 
   defp send_email_using_resend(%{user: user, subject: subject, body_email: body_email}) do
-    client = Resend.client(api_key: "re_65NjJqey_GWbpGHzEXXboKYp8RSGdFsfe")
+    client = Resend.client(api_key: System.get_env("RESEND"))
 
     Resend.Emails.send(client, %{
       from: @from,

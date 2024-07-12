@@ -1,21 +1,7 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     DevJobs.Repo.insert!(%DevJobs.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
-
-alias DevJobs.Repo
-
 # Create a list of job listings
 job_listings = [
   %DevJobs.JobListings.JobListing{
-    title: "Backend Developer",
+    title: "Elixir Backend Developer",
     company: "Tech Solutions",
     location: "Seattle",
     description: "Join our backend development team and help build scalable systems.",
@@ -26,11 +12,11 @@ job_listings = [
     company: "WebTech",
     location: "Austin",
     description:
-      "Looking for a versatile full stack engineer with experience in multiple frameworks.",
+      "Looking for a versatile full stack engineer with experience in Elixir Phoenix LiveView framework.",
     salary: 105_000
   },
   %DevJobs.JobListings.JobListing{
-    title: "Mobile App Developer",
+    title: "iOS Mobile App Developer",
     company: "AppWorks",
     location: "Los Angeles",
     description: "Develop innovative mobile applications for our clients.",
