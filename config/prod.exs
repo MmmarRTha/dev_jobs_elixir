@@ -16,7 +16,7 @@ config :dev_jobs, DevJobsWeb.Endpoint,
 
 config :dev_jobs, DevJobs.Mailer,
   adapter: Resend.Swoosh.Adapter,
-  api_key: System.get_env("RESEND_API_KEY") || raise("RESEND_API_KEY is not set")
+  api_key: System.get_env("RESEND") || raise("RESEND Api Key is not set")
 
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: DevJobs.Finch

@@ -22,7 +22,7 @@ end
 
 config :dev_jobs, DevJobs.Mailer,
   adapter: Resend.Swoosh.Adapter,
-  api_key: System.get_env("RESEND_API_KEY")
+  api_key: System.get_env("RESEND")
 
 if config_env() == :prod do
   database_url =
