@@ -12,7 +12,10 @@ config :dev_jobs, DevJobs.Mailer,
   adapter: Resend.Swoosh.Adapter,
   api_key: System.get_env("RESEND_API_KEY") || raise("RESEND_API_KEY is not set")
 
-config :dev_jobs, DevJobsWeb.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
+config :dev_jobs, DevJobsWeb.Endpoint,
+  url: [host: "devjob-elixir.me", scheme: "https", port: 443],
+  check_origin: [host, gig_host],
+  cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: DevJobs.Finch
