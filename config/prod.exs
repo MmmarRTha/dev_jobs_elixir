@@ -8,6 +8,10 @@ import Config
 host = System.get_env("PHX_HOST") || "devjob-elixir.me"
 gig_host = System.get_env("GIG_HOST") || "devjob-elixir.me"
 
+config :dev_jobs, DevJobs.Mailer,
+  adapter: Resend.Swoosh.Adapter,
+  api_key: System.get_env("RESEND_API_KEY")
+
 config :dev_jobs, DevJobsWeb.Endpoint,
   url: [host: "devjob-elixir.me", scheme: "https", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
@@ -16,8 +20,6 @@ config :dev_jobs, DevJobsWeb.Endpoint,
 
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: DevJobs.Finch
-
-config :dev_jobs, DevJobs.Mailer, adapter: Resend.Swoosh.Adapter, api_key: System.get_env("RESEND_API_KEY")
 
 # Disable Swoosh Local Memory Storage
 config :swoosh, local: false

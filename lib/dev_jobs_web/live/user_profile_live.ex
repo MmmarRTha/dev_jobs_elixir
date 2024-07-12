@@ -47,6 +47,7 @@ defmodule DevJobsWeb.UserProfileLive do
   defp error_to_string(:too_large), do: "Too large"
   defp error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
   defp error_to_string(:too_many_files), do: "You have selected too many files"
+
   defp ext(entry) do
     [ext | _] = MIME.extensions(entry.client_type)
     ext
