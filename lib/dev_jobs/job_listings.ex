@@ -25,7 +25,7 @@ defmodule DevJobs.JobListings do
       from(jobs in JobListing,
         limit: @per_page,
         offset: ^offset,
-        order_by: [desc: :inserted_at],
+        order_by: [desc: :updated_at],
         preload: [:user]
       )
       |> filter_by_search_params(search_params)
@@ -52,7 +52,7 @@ defmodule DevJobs.JobListings do
         where: jobs.user_id == ^user_id,
         limit: @per_page,
         offset: ^offset,
-        order_by: [desc: :inserted_at]
+        order_by: [desc: :updated_at]
       )
 
     Repo.all(query)
