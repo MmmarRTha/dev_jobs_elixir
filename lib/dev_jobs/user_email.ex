@@ -41,7 +41,7 @@ defmodule DevJobs.UserEmail do
   end
 
   defp send_email_using_resend(%{user: user, subject: subject, body_email: body_email}) do
-    client = Resend.client(api_key: "re_65NjJqey_GWbpGHzEXXboKYp8RSGdFsfe")
+    client = Resend.client(api_key: "RESEND_API_KEY")
 
     Resend.Emails.send(client, %{
       from: @from,
