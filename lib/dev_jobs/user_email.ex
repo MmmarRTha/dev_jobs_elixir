@@ -24,6 +24,7 @@ defmodule DevJobs.UserEmail do
     if System.get_env("RESEND_API_KEY") do
       send_email_using_resend(%{user: user, subject: subject, body_email: body})
     else
+        raise("RESEND_API_KEY is not set")
       deliver(user.email, subject, body)
     end
   end
