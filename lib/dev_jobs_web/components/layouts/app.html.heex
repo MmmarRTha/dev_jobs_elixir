@@ -2,20 +2,15 @@
   <div class="flex items-center justify-between py-3 text-sm border-b border-zinc-100">
     <div class="flex items-center gap-4">
       <a href="/">
-        <img src={~p"/images/logo.svg"} width="36" />
+        <img src={~p"/images/logo.svg"} class="hidden w-12 h-12 sm:inline" />
       </a>
-      <p class="px-2 font-medium leading-6 rounded-full bg-brand/5 text-brand">
-        v<%= Application.spec(:phoenix, :vsn) %>
-      </p>
     </div>
-    <div class="flex items-center gap-4 text-lg font-semibold text-white">
-      <.link navigate={~p"/"}>
-        All Jobs
+    <div class="flex items-center gap-4 text-lg font-medium text-white lg:ml-48">
+      <.link navigate={~p"/"}>JOBS</.link>
+      <.link :if={@current_user} navigate={~p"/my-job-listings"}>
+        Edit Jobs
       </.link>
-      <.link navigate={~p"/my-job-listings"}>
-        Employers: Posted Jobs
-      </.link>
-      <.link navigate={~p"/my-profile"}>
+      <.link :if={@current_user} navigate={~p"/my-profile"}>
         My Profile
       </.link>
     </div>
@@ -27,7 +22,7 @@
   </div>
 </header>
 <main class="px-4 py-20 sm:px-6 lg:px-8">
-  <div class="max-w-2xl mx-auto">
+  <div class="max-w-2xl mx-auto text-sm">
     <.flash_group flash={@flash} />
     <%= @inner_content %>
   </div>
