@@ -44,7 +44,7 @@ Visit http://localhost:4000 in your browser to see the application running.
 5. Run tests
    ```bash
    mix test
-
+   ```
 ## 🤔 How to Use
 
 >
