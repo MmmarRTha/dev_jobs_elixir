@@ -40,11 +40,13 @@ Dev Jobs Elixir is a job board application built with Elixir and Phoenix LiveVie
    ```bash
    mix phx.server
    ```
-Visit http://localhost:4000 in your browser to see the application running.
+   
 5. Run tests
    ```bash
    mix test
    ```
+Visit http://localhost:4000 in your browser to see the application running.
+
 ## 🤔 How to Use
 
 >
