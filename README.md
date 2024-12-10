@@ -3,9 +3,9 @@
 ## About This Repository
 Dev Jobs Elixir is a job board application built with Elixir and Phoenix LiveView. It allows users to create, read, update, and delete (CRUD) job listings by signing in with a magic link sent via email. Users can also search for job posts by title and description.
 
-## 🛠 Technologies Used
+## 🛠 Technologies Used 👩🏻‍💻
 
-- **Language**: Elixir Phoenix LiveView, Tailwind CSS
+- **Language**: Elixir ⚗️ Phoenix LiveView, Tailwind CSS
 - **Deployment Plataform**: Gigalixir
 - **Build Tool**: Mix
 - **Testing**: ExUnit
