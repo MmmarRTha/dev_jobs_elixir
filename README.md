@@ -46,11 +46,16 @@ Visit http://localhost:4000 in your browser to see the application running.
    mix test
 
 ## 🤔 How to Use
+
+>
 > [!NOTE]
-> Sign In: Enter your email to receive a magic link for authentication.
-
-> Create Job Listing: Fill out the form to create a new job listing.
-
-> Search Jobs: Use the search bar to find job posts by title or description.
-
-> Edit/Delete Jobs: Manage your job listings by editing or deleting them.
+> The ebook is the Second Edition
+> 
+> *Sign In: Enter your email to receive a magic link for authentication.
+>
+> *Create Job Listing: Fill out the form to create a new job listing.
+> 
+> *Search Jobs: Use the search bar to find job posts by title or description.
+>
+> *Edit/Delete Jobs: Manage your job listings by editing or deleting them.
+>
