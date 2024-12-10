@@ -13,12 +13,12 @@ Dev Jobs Elixir is a job board application built with Elixir and Phoenix LiveVie
 
 ## 🚦 Getting Started
 
-### Prerequisites
+### Prerequisites ⚙️
 
 - Elixir (version 1.12 or higher)
 - Erlang OTP (version 24 or higher)
 
-### Installation
+### Installation 🛠️
 
 1. Clone the repository
    ```bash
@@ -47,17 +47,17 @@ Dev Jobs Elixir is a job board application built with Elixir and Phoenix LiveVie
    ```
 Visit http://localhost:4000 in your browser to see the application running.
 
-## 🤔 How to Use
+## Usage 🚀
 
 >
 > [!NOTE]
 > 
 > 
-> - Sign In: Enter your email to receive a magic link for authentication.
+> - **Sign In**: Enter your email to receive a magic link for authentication.
 >
-> - Create Job Listing: Fill out the form to create a new job listing.
+> - **Create Job Listing**: Fill out the form to create a new job listing.
 > 
-> - Search Jobs: Use the search bar to find job posts by title or description.
+> - **Search Jobs**: Use the search bar to find job posts by title or description.
 >
-> - Edit/Delete Jobs: Manage your job listings by editing or deleting them.
+> - **Edit/Delete Jobs**: Manage your job listings by editing or deleting them.
 >
