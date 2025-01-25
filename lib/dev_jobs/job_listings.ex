@@ -21,10 +21,14 @@ defmodule DevJobs.JobListings do
     Repo.get!(JobListing, id)
   end
 
-  def list_job_listings(params \\ %{}) do
+  def list_job_listings(page \\ 1, params \\ %{}) do
+    offset = (page - 1) * @per_page
+
     JobListing
     |> filter_by_search_params(params)
     |> order_by(desc: :inserted_at)
+    |> limit(@per_page)
+    |> offset(^offset)
     |> preload(:user)
     |> Repo.all()
   end
