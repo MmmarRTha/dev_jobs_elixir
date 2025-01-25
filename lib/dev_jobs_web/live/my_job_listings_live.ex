@@ -39,18 +39,19 @@ defmodule DevJobsWeb.MyJobListingsLive do
   end
 
   def handle_event("delete", %{"id" => id}, socket) do
-    case JobListings.get_my_job_listings(id, socket.assigns.current_user.id) do
-      {:ok, job_listing} ->
-        socket = stream_delete(socket, :job_listings, job_listing)
+    job_listing = JobListings.get_job_listing!(id)
 
+    case JobListings.delete_job_listing(job_listing) do
+      {:ok, _deleted_job} ->
         {:noreply,
          socket
          |> put_flash(:info, "Job listing deleted successfully.")
-         |> push_patch(to: ~p"/my-job-listings")}
+         |> stream_delete(:job_listings, job_listing)}
 
-      {:error, message} ->
-        socket = put_flash(socket, :error, "Error deleting Job: #{message}")
-        {:noreply, socket}
+      {:error, _changeset} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Could not delete job listing.")}
     end
   end
 
