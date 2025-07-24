@@ -20,11 +20,12 @@ if System.get_env("PHX_SERVER") do
   config :dev_jobs, DevJobsWeb.Endpoint, server: true
 end
 
-config :dev_jobs, DevJobs.Mailer,
-  adapter: Resend.Swoosh.Adapter,
-  api_key: System.get_env("RESEND")
-
 if config_env() == :prod do
+  # Configure mailer for production
+  config :dev_jobs, DevJobs.Mailer,
+    adapter: Resend.Swoosh.Adapter,
+    api_key: System.get_env("RESEND")
+
   database_url =
     System.get_env("DATABASE_URL") ||
       raise """

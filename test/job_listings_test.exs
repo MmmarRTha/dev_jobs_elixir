@@ -61,6 +61,8 @@ defmodule DevJobs.JobListingsTest do
 
       {:ok, job_listing} = JobListings.save_job_listing(job_listing, attrs)
 
+      job_listing = DevJobs.Repo.preload(job_listing, :user)
+
       assert JobListings.list_job_listings(1, %{"search_text" => "Test"}) == [job_listing]
     end
   end
@@ -88,7 +90,7 @@ defmodule DevJobs.JobListingsTest do
     end
 
     test "deletes a job listing", %{job_listing: saved_job_listing} do
-      JobListings.delete_job_listing(saved_job_listing.id)
+      JobListings.delete_job_listing(saved_job_listing)
 
       assert_raise Ecto.NoResultsError, fn ->
         JobListings.get_job_listing!(saved_job_listing.id)
