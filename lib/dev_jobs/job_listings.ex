@@ -16,21 +16,22 @@ defmodule DevJobs.JobListings do
     |> broadcast(:new_jobs_posted)
   end
 
-  def get_job_listing!(id), do: Repo.get!(JobListing, id)
+  def get_job_listing!(id) when is_binary(id), do: get_job_listing!(String.to_integer(id))
 
-  def list_job_listings(page, search_params) do
+  def get_job_listing!(id) when is_integer(id) do
+    Repo.get!(JobListing, id)
+  end
+
+  def list_job_listings(page \\ 1, params \\ %{}) do
     offset = (page - 1) * @per_page
 
-    query =
-      from(jobs in JobListing,
-        limit: @per_page,
-        offset: ^offset,
-        order_by: [desc: :updated_at],
-        preload: [:user]
-      )
-      |> filter_by_search_params(search_params)
-
-    Repo.all(query)
+    JobListing
+    |> filter_by_search_params(params)
+    |> order_by(desc: :inserted_at)
+    |> limit(@per_page)
+    |> offset(^offset)
+    |> preload(:user)
+    |> Repo.all()
   end
 
   defp filter_by_search_params(query, %{"search_text" => search_text}) do
@@ -58,8 +59,7 @@ defmodule DevJobs.JobListings do
     Repo.all(query)
   end
 
-  def delete_job_listing(id) do
-    job_listing = Repo.get!(JobListing, id)
+  def delete_job_listing(%JobListing{} = job_listing) do
     Repo.delete(job_listing)
   end
 

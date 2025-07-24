@@ -8,6 +8,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
   def job_form_modal(assigns) do
     assigns =
       assigns
+      |> assign(:form, to_form(assigns.changeset))
       |> assign_new(:modal_config, fn ->
         if assigns.job_listing.id do
           %{
@@ -25,15 +26,20 @@ defmodule DevJobsWeb.JobListingsLive.Components do
     ~H"""
     <.modal id="job-form-modal" show={true} on_cancel={JS.patch(~p"/my-job-listings")}>
       <div>
-        <h1 class="text-xl font-bold"><%= @modal_config.title %></h1>
-        <.form :let={f} for={@changeset} phx-change="validate" phx-submit="save" class="space-y-6">
-          <.input type="text" label="Title:" field={f[:title]} placeholder="Title" />
-          <.input type="text" label="Description:" field={f[:description]} placeholder="Description" />
-          <.input type="text" label="Location:" field={f[:location]} placeholder="Location" />
-          <.input type="text" label="Company:" field={f[:company]} placeholder="Company" />
-          <.input type="number" label="Salary:" field={f[:salary]} placeholder="Salary" />
+        <h1 class="text-xl font-bold">{@modal_config.title}</h1>
+        <.form for={@form} phx-change="validate" phx-submit="save" class="space-y-6">
+          <.input type="text" label="Title:" field={@form[:title]} placeholder="Title" />
+          <.input
+            type="text"
+            label="Description:"
+            field={@form[:description]}
+            placeholder="Description"
+          />
+          <.input type="text" label="Location:" field={@form[:location]} placeholder="Location" />
+          <.input type="text" label="Company:" field={@form[:company]} placeholder="Company" />
+          <.input type="number" label="Salary:" field={@form[:salary]} placeholder="Salary" />
           <.button class="text-gray-900 bg-teal-400 hover:bg-teal-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-            <%= @modal_config.submit %>
+            {@modal_config.submit}
           </.button>
         </.form>
       </div>
@@ -50,9 +56,12 @@ defmodule DevJobsWeb.JobListingsLive.Components do
       <div class="container mb-4 leading-none bg-white rounded-xl">
         <ul>
           <li class="p-8 space-y-1 border border-slate-200 rounded-xl">
-            <strong class="flex justify-center pb-2 text-2xl"><%= @job_listing.title %></strong>
+            <strong class="flex justify-center pb-2 text-2xl">{@job_listing.title}</strong>
             <div
-              :if={@job_listing.user && @job_listing.user.avatar}
+              :if={
+                @job_listing.user && not is_struct(@job_listing.user, Ecto.Association.NotLoaded) &&
+                  @job_listing.user.avatar
+              }
               class="flex flex-col items-end pb-2"
             >
               <img
@@ -62,21 +71,21 @@ defmodule DevJobsWeb.JobListingsLive.Components do
               />
             </div>
             <p>
-              <span class="text-sm text-gray-600 label">Description: </span><%= @job_listing.description %>
+              <span class="text-sm text-gray-600 label">Description: </span>{@job_listing.description}
             </p>
             <p>
-              <span class="text-sm text-gray-600 label">Location: </span><%= @job_listing.location %>
+              <span class="text-sm text-gray-600 label">Location: </span>{@job_listing.location}
             </p>
             <p>
-              <span class="text-sm text-gray-600 label">Company: </span><%= @job_listing.company %>
+              <span class="text-sm text-gray-600 label">Company: </span>{@job_listing.company}
             </p>
             <p>
-              <span class="text-sm text-gray-600 label">Salary: </span>$<%= @job_listing.salary %>
+              <span class="text-sm text-gray-600 label">Salary: </span>${@job_listing.salary}
             </p>
             <p class="text-xs text-sky-600 label">
               Posted:
               <span class="text-green-500">
-                <%= Timex.from_now(Timex.shift(@job_listing.updated_at, hours: 0)) %>
+                {Timex.from_now(Timex.shift(@job_listing.updated_at, hours: 0))}
               </span>
             </p>
           </li>
@@ -96,23 +105,23 @@ defmodule DevJobsWeb.JobListingsLive.Components do
       <div class="container mb-4 leading-none bg-white rounded-xl">
         <ul>
           <li class="p-6 space-y-1 border border-slate-200 rounded-xl">
-            <strong class="flex justify-center text-2xl"><%= @job_listing.title %></strong>
+            <strong class="flex justify-center text-2xl">{@job_listing.title}</strong>
             <p class="pt-2">
-              <span class="text-sm text-gray-600 label">Description: </span><%= @job_listing.description %>
+              <span class="text-sm text-gray-600 label">Description: </span>{@job_listing.description}
             </p>
             <p>
-              <span class="text-sm text-gray-600 label">Location: </span><%= @job_listing.location %>
+              <span class="text-sm text-gray-600 label">Location: </span>{@job_listing.location}
             </p>
             <p>
-              <span class="text-sm text-gray-600 label">Company: </span><%= @job_listing.company %>
+              <span class="text-sm text-gray-600 label">Company: </span>{@job_listing.company}
             </p>
             <p>
-              <span class="text-sm text-gray-600 label">Salary: </span>$<%= @job_listing.salary %>
+              <span class="text-sm text-gray-600 label">Salary: </span>${@job_listing.salary}
             </p>
             <p class="text-xs text-sky-600 label">
               Posted:
               <span class="text-green-500">
-                <%= Timex.from_now(Timex.shift(@job_listing.updated_at, hours: 0)) %>
+                {Timex.from_now(Timex.shift(@job_listing.updated_at, hours: 0))}
               </span>
             </p>
             <div

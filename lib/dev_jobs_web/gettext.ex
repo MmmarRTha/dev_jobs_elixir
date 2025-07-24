@@ -20,5 +20,5 @@ defmodule DevJobsWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :dev_jobs
+  use Gettext.Backend, otp_app: :dev_jobs
 end
