@@ -8,11 +8,14 @@ defmodule DevJobsWeb.LoginLiveComponent do
     user = %User{}
     changeset = User.changeset(user, %{})
     form = to_form(changeset)
-    socket = assign(socket,
-      user: user,
-      changeset: changeset,
-      form: form
-    )
+
+    socket =
+      assign(socket,
+        user: user,
+        changeset: changeset,
+        form: form
+      )
+
     {:ok, socket}
   end
 

@@ -43,7 +43,7 @@ defmodule DevJobsWeb do
         layouts: [html: DevJobsWeb.Layouts]
 
       import Plug.Conn
-      import DevJobsWeb.Gettext
+      use Gettext, backend: DevJobsWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -85,7 +85,7 @@ defmodule DevJobsWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import DevJobsWeb.CoreComponents
-      import DevJobsWeb.Gettext
+      use Gettext, backend: DevJobsWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

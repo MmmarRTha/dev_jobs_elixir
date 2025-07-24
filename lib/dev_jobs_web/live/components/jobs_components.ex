@@ -29,7 +29,12 @@ defmodule DevJobsWeb.JobListingsLive.Components do
         <h1 class="text-xl font-bold">{@modal_config.title}</h1>
         <.form for={@form} phx-change="validate" phx-submit="save" class="space-y-6">
           <.input type="text" label="Title:" field={@form[:title]} placeholder="Title" />
-          <.input type="text" label="Description:" field={@form[:description]} placeholder="Description" />
+          <.input
+            type="text"
+            label="Description:"
+            field={@form[:description]}
+            placeholder="Description"
+          />
           <.input type="text" label="Location:" field={@form[:location]} placeholder="Location" />
           <.input type="text" label="Company:" field={@form[:company]} placeholder="Company" />
           <.input type="number" label="Salary:" field={@form[:salary]} placeholder="Salary" />
@@ -53,7 +58,10 @@ defmodule DevJobsWeb.JobListingsLive.Components do
           <li class="p-8 space-y-1 border border-slate-200 rounded-xl">
             <strong class="flex justify-center pb-2 text-2xl">{@job_listing.title}</strong>
             <div
-              :if={@job_listing.user && not is_struct(@job_listing.user, Ecto.Association.NotLoaded) && @job_listing.user.avatar}
+              :if={
+                @job_listing.user && not is_struct(@job_listing.user, Ecto.Association.NotLoaded) &&
+                  @job_listing.user.avatar
+              }
               class="flex flex-col items-end pb-2"
             >
               <img

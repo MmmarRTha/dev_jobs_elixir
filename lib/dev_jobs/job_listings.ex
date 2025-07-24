@@ -17,6 +17,7 @@ defmodule DevJobs.JobListings do
   end
 
   def get_job_listing!(id) when is_binary(id), do: get_job_listing!(String.to_integer(id))
+
   def get_job_listing!(id) when is_integer(id) do
     Repo.get!(JobListing, id)
   end

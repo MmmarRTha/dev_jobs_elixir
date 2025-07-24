@@ -17,7 +17,7 @@ defmodule DevJobsWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import DevJobsWeb.Gettext
+  use Gettext, backend: DevJobsWeb.Gettext
 
   @doc """
   Renders a modal.
