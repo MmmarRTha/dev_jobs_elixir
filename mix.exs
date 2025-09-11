@@ -33,6 +33,8 @@ defmodule DevJobs.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:tidewave, "~> 0.5", only: [:dev]},
+      {:igniter, "~> 0.6", only: [:dev, :test]},
       {:phoenix, "~> 1.8.1"},
       {:phoenix_ecto, "~> 4.6"},
       {:ecto_sql, "~> 3.13"},
