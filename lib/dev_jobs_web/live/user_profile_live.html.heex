@@ -1,52 +1,113 @@
-<div class="container">
-  <h1 class="text-2xl font-bold text-center text-white">My Profile</h1>
-  <div class="flex justify-center text-xl leading-6 text-center text-white">
-    <.simple_form for={%{}} phx-submit="save" phx-change="validate">
-      <.live_file_input upload={@uploads.files} />
-      <.button
-        type="submit"
-        class="px-4 py-2 text-xl font-bold text-white rounded-md bg-cyan-500 hover:bg-cyan-700"
+<!-- Header Section -->
+<div class="text-center mb-8">
+  <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
+    My
+    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">
+      Profile
+    </span>
+  </h1>
+  <p class="text-lg text-white/80 mb-6">
+    Manage your profile information and avatar
+  </p>
+</div>
+
+<!-- Profile Card -->
+<div class="max-w-2xl mx-auto bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-card">
+  <!-- Current Profile Display -->
+  <div :if={@current_user.avatar} class="text-center mb-8">
+    <div class="relative inline-block">
+      <img
+        src={~p"/uploads/#{@current_user.avatar}"}
+        alt="current-user-profile-avatar"
+        class="w-24 h-24 rounded-full border-4 border-white shadow-lg mx-auto"
+      />
+      <div class="absolute bottom-1 right-1 size-5 bg-accent-300 rounded-full flex items-center justify-center">
+        <.icon name="hero-check" class="size-3 text-black" />
+      </div>
+    </div>
+    <p class="text-white font-medium mt-4 text-lg">{@current_user.email}</p>
+  </div>
+  
+<!-- Upload Section -->
+  <div class="text-center">
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold text-white mb-2">Update Profile Picture</h3>
+      <p class="text-white/70 text-sm">
+        Upload a new profile picture to personalize your account
+      </p>
+    </div>
+
+    <.simple_form for={%{}} phx-submit="save" phx-change="validate" class="space-y-4">
+      <!-- Upload Area -->
+      <div
+        class="border-2 border-dashed border-white/30 rounded-xl p-8 text-center hover:border-primary-400 transition-colors duration-200"
+        phx-drop-target={@uploads.files.ref}
       >
-        Save
-      </.button>
+        <.live_file_input
+          upload={@uploads.files}
+          class="bg-teal-600 hover:bg-teal-700 text-white font-medium px-6 py-2.5 rounded-lg transition-colors duration-200 cursor-pointer"
+        />
+        <div class="space-y-4">
+          <.icon name="hero-photo" class="w-12 h-12 text-white/60 mx-auto" />
+          <div>
+            <p class="text-white font-medium">Click to upload or drag and drop</p>
+            <p class="text-white/60 text-sm">PNG, JPG up to 10MB</p>
+          </div>
+        </div>
+      </div>
+      
+<!-- Upload Progress -->
+      <div :for={entry <- @uploads.files.entries} class="space-y-4">
+        <div class="bg-white/10 rounded-lg p-4">
+          <div class="flex items-center justify-center">
+            <figure>
+              <.live_img_preview
+                entry={entry}
+                class="size-72 rounded-lg object-cover border-2 border-white/20 shadow-lg"
+              />
+              <figcaption class="text-lg text-center text-white">
+                {entry.client_name}
+              </figcaption>
+            </figure>
+          </div>
+          <div class="flex items-center flex-col mt-4">
+            <progress
+              value={entry.progress}
+              max="100"
+              class="w-full h-2 bg-accent-300/80 rounded-full overflow-hidden"
+            >
+              {entry.progress}%
+            </progress>
+            <button
+              type="button"
+              phx-click="cancel-upload"
+              phx-value-ref={entry.ref}
+              aria-label="cancel"
+              class="font-bold text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-lg transition-colors duration-200 mt-4"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+      
+<!-- Upload Errors -->
+      <div
+        :for={err <- upload_errors(@uploads.files)}
+        class="bg-red-500/20 border border-red-500/30 rounded-lg p-3"
+      >
+        <p class="text-red-200 text-sm">{error_to_string(err)}</p>
+      </div>
+      
+<!-- Save Button -->
+      <div class="pt-4">
+        <.button
+          type="submit"
+          class="submit_button px-5 py-2.5 w-full"
+        >
+          <.icon name="hero-check-outline" class="w-5 h-5 mr-2" /> Save Profile
+        </.button>
+      </div>
     </.simple_form>
   </div>
-
-  <section class="flex items-center justify-center" phx-drop-target={@uploads.files.ref}>
-    <%= for entry <- @uploads.files.entries do %>
-      <article class="max-w-72">
-        <figure>
-          <.live_img_preview entry={entry} />
-          <figcaption class="text-lg text-center text-white">
-            {entry.client_name}
-          </figcaption>
-        </figure>
-
-        <div class="flex items-center justify-center">
-          <progress value={entry.progress} max="100">{entry.progress}%</progress>
-          <button
-            type="button"
-            phx-click="cancel-upload"
-            phx-value-ref={entry.ref}
-            aria-label="cancel"
-            class="font-bold text-white"
-          >
-            &times;
-          </button>
-        </div>
-
-        <%= for err <- upload_errors(@uploads.files, entry) do %>
-          <p class="alert alert-danger">{error_to_string(err)}</p>
-        <% end %>
-      </article>
-    <% end %>
-
-    <%= for err <- upload_errors(@uploads.files) do %>
-      <p class="alert alert-danger">{error_to_string(err)}</p>
-    <% end %>
-    <div :if={@current_user.avatar} class="pt-4 text-white max-w-64">
-      <img src={~p"/uploads/#{@current_user.avatar}"} alt="current-user-profile-avatar" />
-      <p class="pt-2 text-center">{@current_user.email}</p>
-    </div>
-  </section>
 </div>

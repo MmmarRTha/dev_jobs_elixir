@@ -1,28 +1,41 @@
-<header class="px-4 sm:px-6 lg:px-8">
-  <div class="flex items-center justify-between py-3 text-sm border-b border-zinc-100">
-    <div class="flex items-center gap-4">
-      <a href="/">
-        <img src={~p"/images/logo.svg"} class="hidden w-12 h-12 sm:inline" />
-      </a>
+<header class="fixed top-0 left-0 right-0 backdrop-blur-xl shadow-soft border-y border-white/10 z-50">
+  <div class="px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between py-4 text-sm">
+      <div class="flex items-center gap-4">
+        <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <img src={~p"/images/logo.svg"} class="hidden w-8 h-8 md:inline" />
+        </a>
+      </div>
+
+      <nav class="flex items-center gap-4 text-xl font-medium text-orange-400 lg:ml-48">
+        <.link class="hidden md:inline text-2xl font-bold" navigate={~p"/"}>DevJobs</.link>
+        <.link
+          :if={@current_user}
+          class="text-orange-400/90 hover:text-orange-500 font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-orange-400/30"
+          navigate={~p"/my-job-listings"}
+        >
+          <.icon name="hero-pencil-square" class="w-4 h-4 mr-1" />Edit Jobs
+        </.link>
+        <.link
+          :if={@current_user}
+          class="text-orange-400/90 hover:text-orange-500 font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-orange-400/30"
+          navigate={~p"/my-profile"}
+        >
+          <.icon name="hero-user-circle" class="w-4 h-4 mr-1" />My Profile
+        </.link>
+      </nav>
+
+      <.live_component
+        id="login-form"
+        module={DevJobsWeb.LoginLiveComponent}
+        current_user={@current_user}
+      />
     </div>
-    <div class="flex items-center gap-4 text-lg font-medium text-white lg:ml-48">
-      <.link navigate={~p"/"}>JOBS</.link>
-      <.link :if={@current_user} navigate={~p"/my-job-listings"}>
-        Edit Jobs
-      </.link>
-      <.link :if={@current_user} navigate={~p"/my-profile"}>
-        My Profile
-      </.link>
-    </div>
-    <.live_component
-      id="login-form"
-      module={DevJobsWeb.LoginLiveComponent}
-      current_user={@current_user}
-    />
   </div>
 </header>
+
 <main class="px-4 py-20 sm:px-6 lg:px-8">
-  <div class="max-w-2xl mx-auto text-sm">
+  <div class="max-w-3xl mx-auto text-sm">
     <.flash_group flash={@flash} />
     {@inner_content}
   </div>
