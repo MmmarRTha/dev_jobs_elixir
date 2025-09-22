@@ -1,7 +1,7 @@
 <div>
   <div :if={!@current_user}>
     <.button
-      class="text-gray-800 bg-gradient-to-r from-teal-200 via-teal-400 to-teal-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+      class="submit_button px-5 py-2.5"
       phx-click={show_modal("login-form-modal")}
     >
       Employers / Post Job
@@ -16,22 +16,27 @@
         class="space-y-6"
         autocomplete="off"
       >
-        <.input type="email" field={@form[:email]} label="Email" />
-        <.button class="text-gray-900 bg-gradient-to-r from-teal-200 via-teal-400 to-teal-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-          Send Magic Link
+        <.input
+          type="email"
+          field={@form[:email]}
+          label="Email:"
+          placeholder="your@email.com"
+        />
+        <.button class="submit_button px-5 py-2.5">
+          <.icon name="hero-paper-airplane" class="w-4 h-4 mr-2" /> Send Magic Link
         </.button>
       </.form>
     </.modal>
   </div>
 
   <div :if={@current_user} class="flex items-center leading-6">
-    <p class="hidden px-4 font-medium text-white sm:inline md:text-lg">
+    <p class="hidden px-4 font-medium text-orange-400 sm:inline md:text-lg">
       Hi: {@current_user.email}
     </p>
     <.link
       href={~p"/users/sessions/logout"}
       method="delete"
-      class="text-gray-900 bg-gradient-to-r from-teal-200 via-teal-400 to-teal-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-3 lg:px-5 py-2.5 text-center me-2 mb-2"
+      class="submit_button px-5 py-2.5"
     >
       Logout
     </.link>

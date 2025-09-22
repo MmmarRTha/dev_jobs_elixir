@@ -26,21 +26,63 @@ defmodule DevJobsWeb.JobListingsLive.Components do
     ~H"""
     <.modal id="job-form-modal" show={true} on_cancel={JS.patch(~p"/my-job-listings")}>
       <div>
-        <h1 class="text-xl font-bold">{@modal_config.title}</h1>
+        <h1 class="text-2xl font-black text-primary-50 uppercase">{@modal_config.title}</h1>
+        <p class="text-secondary-200 my-6">Fill in the details below to post your job listing</p>
         <.form for={@form} phx-change="validate" phx-submit="save" class="space-y-6">
-          <.input type="text" label="Title:" field={@form[:title]} placeholder="Title" />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <.input
+              type="text"
+              label="Job Title:"
+              field={@form[:title]}
+              placeholder="e.g., Senior Frontend Developer"
+              class="text-base"
+            />
+            <.input
+              type="text"
+              label="Company Name:"
+              field={@form[:company]}
+              placeholder="e.g., Tech Corp"
+              class="text-base"
+            />
+          </div>
           <.input
-            type="text"
-            label="Description:"
+            type="textarea"
+            label="Job Description:"
             field={@form[:description]}
-            placeholder="Description"
+            placeholder="Describe the role, responsibilities, and requirements..."
+            rows="4"
+            class="text-base"
           />
-          <.input type="text" label="Location:" field={@form[:location]} placeholder="Location" />
-          <.input type="text" label="Company:" field={@form[:company]} placeholder="Company" />
-          <.input type="number" label="Salary:" field={@form[:salary]} placeholder="Salary" />
-          <.button class="text-gray-900 bg-teal-400 hover:bg-teal-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-            {@modal_config.submit}
-          </.button>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <.input
+              type="text"
+              label="Location:"
+              field={@form[:location]}
+              placeholder="e.g., San Francisco, CA"
+              class="text-base"
+            />
+            <.input
+              type="number"
+              label="Salary (USD):"
+              field={@form[:salary]}
+              placeholder="e.g., 120000"
+              class="text-base"
+            />
+          </div>
+          <div class="flex justify-between items-center gap-8 pt-4">
+            <button
+              type="button"
+              class="px-7 py-4 text-secondary-700 bg-rose-100 hover:bg-rose-200 font-medium rounded-lg transition-colors duration-200"
+              phx-click={JS.exec("data-cancel", to: "#job-form-modal")}
+            >
+              Cancel
+            </button>
+            <.button class="submit_button px-5 py-4">
+              <.icon name="hero-check" class="w-4 h-4 mr-2" />
+              {@modal_config.submit}
+            </.button>
+          </div>
         </.form>
       </div>
     </.modal>
