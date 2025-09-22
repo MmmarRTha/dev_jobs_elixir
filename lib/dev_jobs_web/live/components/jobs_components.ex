@@ -113,7 +113,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
               />
             </div>
             <span class="text-sm text-gray-400 font-semibold label">Description: </span>
-            <p class="whitespace-pre-line">{@job_listing.description}</p>
+            <p class="whitespace-pre-line text-justify text-sm/6">{@job_listing.description}</p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-5">
               <div class="flex items-center space-x-2">
                 <div class="size-6 bg-primary-100 rounded-lg flex items-center justify-center">
