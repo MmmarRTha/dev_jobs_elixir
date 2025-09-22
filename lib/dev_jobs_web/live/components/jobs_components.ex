@@ -171,30 +171,53 @@ defmodule DevJobsWeb.JobListingsLive.Components do
         <ul>
           <li class="p-6 space-y-1 border border-slate-200 rounded-xl">
             <strong class="flex justify-center text-2xl">{@job_listing.title}</strong>
-            <p class="pt-2">
-              <span class="text-sm text-gray-600 label">Description: </span>{@job_listing.description}
-            </p>
-            <p>
-              <span class="text-sm text-gray-600 label">Location: </span>{@job_listing.location}
-            </p>
-            <p>
-              <span class="text-sm text-gray-600 label">Company: </span>{@job_listing.company}
-            </p>
-            <p>
-              <span class="text-sm text-gray-600 label">Salary: </span>${@job_listing.salary}
-            </p>
-            <p class="text-xs text-sky-600 label">
-              Posted:
-              <span class="text-green-500">
-                {Timex.from_now(Timex.shift(@job_listing.updated_at, hours: 0))}
-              </span>
-            </p>
+            <span class="text-sm text-gray-400 font-semibold label">Description: </span>
+            <p class="whitespace-pre-line text-justify text-sm/6">{@job_listing.description}</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-5">
+              <div class="flex items-center space-x-2">
+                <div class="size-6 bg-primary-100 rounded-lg flex items-center justify-center">
+                  <.icon name="hero-map-pin" class="size-4 text-primary-600" />
+                </div>
+                <p>
+                  <span class="text-sm text-gray-600 label">Location: </span>{@job_listing.location}
+                </p>
+              </div>
+
+              <div class="flex items-center space-x-2">
+                <div class="size-6 bg-secondary-100 rounded-lg flex items-center justify-center">
+                  <.icon name="hero-building-office" class="size-4 text-secondary-600" />
+                </div>
+                <p>
+                  <span class="text-sm text-gray-600 label">Company: </span>{@job_listing.company}
+                </p>
+              </div>
+
+              <div class="flex items-center space-x-2">
+                <div class="size-6 bg-accent-100 rounded-lg flex items-center justify-center">
+                  <.icon name="hero-currency-dollar" class="size-4 text-accent-600" />
+                </div>
+                <p>
+                  <span class="text-sm text-gray-600 label">Salary: </span>${@job_listing.salary}
+                </p>
+              </div>
+            </div>
+
+            <div class="flex justify-end flex-shrink-0">
+              <div class="px-2 py-1 rounded-full bg-accent-100 mb-4">
+                <p class="text-xs text-sky-600 label">
+                  <.icon name="hero-clock" class="w-3 h-3 mr-1" /> Posted:
+                  <span class="text-green-600">
+                    {Timex.from_now(Timex.shift(@job_listing.updated_at, hours: 0))}
+                  </span>
+                </p>
+              </div>
+            </div>
             <div
               :if={@current_user && @current_user.id == @job_listing.user_id}
-              class="flex justify-end space-x-4"
+              class="flex justify-between px-8"
             >
               <.button
-                class="text-xs text-white uppercase bg-blue-500 hover:bg-blue-700 py-1.5 px-2 rounded-lg"
+                class="inline-flex items-center px-5 py-3 bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md"
                 phx-click={
                   JS.patch(~p"/my-job-listings/edit/#{@job_listing.id}")
                   |> show_modal("job-form-modal")
@@ -203,7 +226,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
                 Update
               </.button>
               <.button
-                class="text-xs text-white uppercase bg-red-500 hover:bg-red-700 py-1.5 px-2 rounded-lg"
+                class="inline-flex items-center px-5 py-3 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md"
                 phx-click="delete"
                 phx-value-id={@job_listing.id}
                 data-confirm="Are you sure to delete this job?"
