@@ -34,6 +34,12 @@ defmodule DevJobs.JobListings do
     |> Repo.all()
   end
 
+  def count_job_listings(params \\ %{}) do
+    JobListing
+    |> filter_by_search_params(params)
+    |> Repo.aggregate(:count, :id)
+  end
+
   defp filter_by_search_params(query, %{"search_text" => search_text}) do
     search_pattern = "%#{search_text}%"
 
