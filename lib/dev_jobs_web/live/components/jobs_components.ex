@@ -25,7 +25,7 @@ defmodule DevJobsWeb.JobListingsLive.Components do
 
     ~H"""
     <.modal id="job-form-modal" show={true} on_cancel={JS.patch(~p"/my-job-listings")}>
-      <div>
+      <div class="p-10">
         <h1 class="text-2xl font-black text-primary-50 uppercase">{@modal_config.title}</h1>
         <p class="text-secondary-200 my-6">Fill in the details below to post your job listing</p>
         <.form for={@form} phx-change="validate" phx-submit="save" class="space-y-6">
