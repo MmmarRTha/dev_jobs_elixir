@@ -1,5 +1,5 @@
-<div class="text-center mt-6">
-  <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 animate-fade-in">
+<div class="text-center mt-10">
+  <h1 class="text-3xl md:text-5xl font-bold text-white my-4 animate-fade-in">
     Find Your Next
     <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">
       Dream Job
@@ -10,8 +10,8 @@
   </p>
 </div>
 
-<div class="bg-white/10 backdrop-blur-md rounded-2xl px-8 py-16 shadow-card animate-slide-up">
-  <.simple_form for={@form} autocomplete="off" method="GET" class="space-y-4">
+<div class="bg-white/10 backdrop-blur-md rounded-2xl px-8 py-10 md:py-16 shadow-card animate-slide-up">
+  <.simple_form for={@form} autocomplete="off" method="GET">
     <div class="flex flex-col md:flex-row gap-4">
       <div class="flex-1">
         <.input
@@ -20,13 +20,13 @@
           class="text-base"
         />
       </div>
-      <div class="flex gap-2">
-        <.button class="bg-accent-400 hover:bg-accent-500 text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 shadow-card hover:shadow-card-hover">
+      <div class="flex gap-8 items-center justify-center md:justify-end mt-3 md:mt-0">
+        <.button class="bg-accent-400 hover:bg-accent-500 text-white font-medium px-4 py-3 rounded-lg transition-colors duration-200 shadow-card hover:shadow-card-hover">
           <.icon name="hero-magnifying-glass" class="w-4 h-4 mr-2" /> Search
         </.button>
         <a
           href="/"
-          class="bg-secondary-400 hover:bg-secondary-500 text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 shadow-card hover:shadow-card-hover items-center flex"
+          class="bg-secondary-400 hover:bg-secondary-500 text-white font-medium px-5 py-3 rounded-lg transition-colors duration-200 shadow-card hover:shadow-card-hover items-center flex"
         >
           <.icon name="hero-x-mark" class="w-4 h-4 mr-2" /> Clear
         </a>
@@ -37,7 +37,12 @@
 
 <h1 class="my-4 text-xl font-bold text-center text-white uppercase">Job Listings</h1>
 
-<div id="job_listings" phx-update="stream" phx-viewport-bottom={!@end_of_timeline? && "next-page"}>
+<div
+  class="space-y-8"
+  id="job_listings"
+  phx-update="stream"
+  phx-viewport-bottom={!@end_of_timeline? && "next-page"}
+>
   <.job_listing_rows
     :for={{dom_id, job_listing} <- @streams.job_listings}
     id={dom_id}

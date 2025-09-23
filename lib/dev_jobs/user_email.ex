@@ -30,12 +30,35 @@ defmodule DevJobs.UserEmail do
 
   def email_body(user, magic_link_url) do
     """
-    <p style="color:black;font-size:16px;line-height:26px;margin:16px 0">Hello #{user.email}</p>
-    <p style="color:black;font-size:16px;line-height:26px;margin:16px 0">Here you will find a magic link to sign in to our Dev Jobs platform.</p>
+    <style>
+    .email-text {
+    color: black;
+    font-size: 16px;
+    line-height: 26px;
+    margin: 16px 0;
+    }
 
-    <h1 style="color:black;font-size:28px;font-weight:bold;margin-top:20px"><a href=" #{magic_link_url}" target="_blank">🪄 Your magic link</a></h1>
+    .email-link {
+        font-size: 28px;
+        font-weight: bold;
+        margin: 30px 0;
+        text-decoration: underline;
+        color: #7cfc00;
+    }
 
-    <p style="color:black;font-size:16px;line-height:26px;margin:16px 0">If you didn&#x27;t request this, please ignore this email.</p>
+    @media (prefers-color-scheme: dark) {
+    .email-text {
+        color: white;
+    }
+    }
+    </style>
+
+    <p class="email-text">Hello #{user.email}</p>
+    <p class="email-text">Here you will find a magic link to sign in to our Dev Jobs platform.</p>
+
+    <h1 class="email-link"><a href=" #{magic_link_url}" target="_blank">🪄 Your magic link</a></h1>
+
+    <p class="email-text">If you didn&#x27;t request this, please ignore this email.</p>
     """
   end
 

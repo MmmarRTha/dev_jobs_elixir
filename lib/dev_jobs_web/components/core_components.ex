@@ -60,13 +60,13 @@ defmodule DevJobsWeb.CoreComponents do
         tabindex="0"
       >
         <div class="flex items-center justify-center min-h-full">
-          <div class="w-full max-w-2xl p-4 sm:p-6 lg:py-8">
+          <div class="w-full max-w-2xl sm:p-6 lg:py-8">
             <.focus_wrap
               id={"#{@id}-container"}
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="relative hidden transition bg-secondary-500 rounded-2xl p-16"
+              class="relative hidden transition bg-secondary-500 rounded-2xl"
             >
               <div class="absolute top-6 right-5">
                 <button
@@ -378,7 +378,7 @@ defmodule DevJobsWeb.CoreComponents do
         id={@id}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
+          "h-16 md:h-11 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
           "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
           @errors == [] && "border-zinc-300 focus:border-zinc-400",
           @errors != [] && "border-rose-400 focus:border-rose-400"

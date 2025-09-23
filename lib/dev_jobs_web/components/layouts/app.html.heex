@@ -1,9 +1,9 @@
-<header class="fixed top-0 left-0 right-0 backdrop-blur-xl shadow-soft border-y border-white/10 z-50">
+<header class="fixed top-0 left-0 right-0 backdrop-blur-xl shadow-soft border-y border-white/10 z-50 py-2 rounded-md">
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between py-4 text-sm">
       <div class="flex items-center gap-4">
         <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <img src={~p"/images/logo.svg"} class="hidden w-8 h-8 md:inline" />
+          <img src={~p"/images/logo.svg"} class="size-8 md:size-12" />
         </a>
       </div>
 
@@ -11,17 +11,17 @@
         <.link class="hidden md:inline text-2xl font-bold" navigate={~p"/"}>DevJobs</.link>
         <.link
           :if={@current_user}
-          class="text-orange-400/90 hover:text-orange-500 font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-orange-400/30"
+          class="text-orange-400/90 hover:text-white font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-orange-400"
           navigate={~p"/my-job-listings"}
         >
-          <.icon name="hero-pencil-square" class="w-4 h-4 mr-1" />Edit Jobs
+          <.icon name="hero-pencil-square" class="w-4 h-4 mr-1" />Jobs
         </.link>
         <.link
           :if={@current_user}
-          class="text-orange-400/90 hover:text-orange-500 font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-orange-400/30"
+          class="text-orange-400/90 hover:text-white font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-orange-400"
           navigate={~p"/my-profile"}
         >
-          <.icon name="hero-user-circle" class="w-4 h-4 mr-1" />My Profile
+          <.icon name="hero-user-circle" class="w-4 h-4 mr-1" />Profile
         </.link>
       </nav>
 
